@@ -37,10 +37,10 @@
 /* ===== RESET ===== */
 *{margin:0;padding:0;box-sizing:border-box}
 html{font-size:16px}
-body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);height:100vh;height:100dvh;overflow:hidden;-webkit-font-smoothing:antialiased}
 
 /* ===== PAGES ===== */
-.page{display:none;height:100vh;flex-direction:column;overflow:hidden}
+.page{display:none;height:100vh;height:100dvh;flex-direction:column;overflow:hidden}
 .page.active{display:flex}
 
 /* ===== ANIMATIONS ===== */
@@ -109,7 +109,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .inst-arrow{color:var(--muted);margin:0 6px;font-weight:400}
 
 /* ===== TRIANGLE CONTAINER ===== */
-.tri-container{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:visible;margin-bottom:8px;touch-action:manipulation;flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.tri-container{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:visible;margin-bottom:8px;touch-action:manipulation;flex:1 1 0%;min-height:0;display:flex;align-items:center;justify-content:center}
 .tri-container svg{display:block;width:100%;height:100%;max-height:100%;user-select:none;-webkit-user-select:none}
 
 /* ===== SVG SIDE STYLES ===== */
@@ -183,8 +183,8 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
   .game-left{flex:1;min-width:0;min-height:0;display:flex;flex-direction:column}
   .game-right{width:280px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
   .instruction-card{padding:8px 14px;margin-bottom:6px;font-size:1rem}
-  .tri-container{margin-bottom:6px;flex:1;min-height:0}
-  .hint-stack{margin-bottom:4px;min-height:58px}
+  .tri-container{margin-bottom:6px;flex:1;min-height:0;max-height:calc(100dvh - 340px)}
+  .hint-stack{margin-bottom:4px;min-height:62px}
   .ratio-card{margin-bottom:10px;padding:14px}
   .ratio-btns{flex-direction:column;gap:8px}
   .ratio-btn{height:48px;font-size:1.1rem}
