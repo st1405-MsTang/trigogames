@@ -53,6 +53,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 @keyframes wrongFlash{0%{stroke:var(--tri-stroke)}25%{stroke:#DC2626}50%{stroke:var(--tri-stroke)}75%{stroke:#DC2626}100%{stroke:var(--tri-stroke)}}
 @keyframes confettiFall{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}100%{transform:translateY(100vh) rotate(720deg) scale(.3);opacity:0}}
 @keyframes labelPop{from{opacity:0;transform:translate(-50%,-50%) scale(.7)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ===== HOME PAGE ===== */
 #home{background:linear-gradient(135deg,var(--amber-bg) 0%,var(--teal-bg) 40%,var(--blue-bg) 100%);animation:fadeIn .4s ease;justify-content:center}
@@ -85,6 +86,25 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .game-card.disabled{opacity:.55;cursor:default;pointer-events:none}
 .game-card .coming-soon{position:absolute;top:12px;right:12px;background:var(--muted);color:#fff;font-size:.7rem;padding:2px 10px;border-radius:10px;font-weight:500}
 
+/* ===== STUDENT FORM PAGE ===== */
+#student-form{background:linear-gradient(135deg,var(--blue-bg) 0%,var(--purple-bg) 50%,var(--teal-bg) 100%);animation:fadeIn .4s ease;justify-content:center;align-items:center;padding:20px}
+.form-container{background:var(--card);border-radius:20px;padding:28px 24px;max-width:420px;width:100%;box-shadow:var(--shadow);animation:popIn .4s ease}
+.form-header{text-align:center;margin-bottom:20px}
+.form-header .form-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;font-size:1.5rem;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.form-header h2{font-family:'Josefin Sans','Noto Sans TC',sans-serif;font-size:1.5rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.form-header p{font-size:.88rem;color:var(--text2)}
+.form-fields{display:flex;flex-direction:column;gap:14px;margin-bottom:8px}
+.form-row{display:flex;gap:12px}
+.form-row .form-group{flex:1}
+.form-group label{display:block;font-size:.85rem;font-weight:600;color:var(--text2);margin-bottom:5px}
+.form-group input{width:100%;height:46px;border:2px solid var(--border);border-radius:12px;padding:0 14px;font-size:16px;font-family:'Noto Sans TC',sans-serif;background:var(--bg2);color:var(--text);transition:border-color .2s}
+.form-group input:focus{outline:none;border-color:var(--blue)}
+.form-group input::placeholder{color:var(--muted)}
+.form-error{text-align:center;color:var(--red);font-weight:600;font-size:.88rem;min-height:28px;line-height:28px}
+.btn-start-game{width:100%;height:52px;border:none;border-radius:14px;font-size:1.05rem;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s;margin-bottom:10px}
+.btn-start-game:active{transform:scale(.97)}
+.btn-form-back{width:100%;height:44px;border:1px solid var(--border);border-radius:12px;background:transparent;color:var(--text2);font-size:.92rem;font-weight:600;font-family:'Noto Sans TC',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:transform .15s}
+.btn-form-back:active{transform:scale(.97)}
 
 /* ===== GAME PAGE ===== */
 .game-page{background:var(--bg)}
@@ -204,10 +224,13 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 /* ===== RESULTS OVERLAY ===== */
 .results-overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:20px;animation:fadeIn .3s ease}
 .results-overlay.active{display:flex}
-.results-card{background:var(--card);border-radius:24px;padding:36px 28px;text-align:center;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:popIn .4s ease}
-.results-emoji{font-size:3.5rem;margin-bottom:8px}
-.results-title{font-family:'Josefin Sans','Noto Sans TC',sans-serif;font-size:1.7rem;font-weight:700;color:var(--text);margin-bottom:18px}
-.results-scores-row{display:flex;justify-content:center;gap:24px;margin-bottom:14px}
+.results-card{background:var(--card);border-radius:24px;padding:32px 24px;text-align:center;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:popIn .4s ease;max-height:95vh;max-height:95dvh;overflow-y:auto}
+.results-emoji{font-size:3rem;margin-bottom:6px}
+.results-title{font-family:'Josefin Sans','Noto Sans TC',sans-serif;font-size:1.6rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.results-student-info{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-bottom:14px}
+.student-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:10px;font-size:.8rem;font-weight:600;background:var(--bg2);color:var(--text2);border:1px solid var(--border)}
+.student-tag i{font-size:.7rem;color:var(--muted)}
+.results-scores-row{display:flex;justify-content:center;gap:24px;margin-bottom:12px}
 .results-score-ring{text-align:center}
 .ring-label{font-size:.82rem;font-weight:600;color:var(--text2);margin-bottom:6px}
 .ring-wrap{position:relative;width:100px;height:100px;margin:0 auto}
@@ -215,7 +238,11 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .ring-bg{stroke:var(--border)}
 .ring-fill,.ring-fill-2{stroke:var(--green);stroke-dasharray:326.73;stroke-dashoffset:326.73;transition:stroke-dashoffset 1s ease .3s,stroke 1s ease .3s}
 .ring-text{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Source Code Pro',monospace;font-size:1.4rem;font-weight:700;color:var(--text)}
-.results-msg{font-size:.95rem;color:var(--text2);margin-bottom:24px;line-height:1.6}
+.results-msg{font-size:.92rem;color:var(--text2);margin-bottom:10px;line-height:1.6}
+.submit-status{font-size:.8rem;font-weight:600;min-height:22px;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:6px;color:var(--green)}
+.submit-status.sending{color:var(--amber)}
+.submit-status.send-error{color:var(--red)}
+.submit-status .fa-spin{animation:spin 1s linear infinite}
 .results-btns{display:flex;flex-direction:column;gap:10px}
 .rbtn{height:50px;border:none;border-radius:14px;font-size:1rem;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s}
 .rbtn:active{transform:scale(.97)}
@@ -236,7 +263,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
     <div class="badge">中三數學科</div>
   </div>
   <div class="game-grid">
-    <div class="game-card card-c1" onclick="startGame()">
+    <div class="game-card card-c1" onclick="showStudentForm()">
       <div class="card-icon"><i class="fas fa-draw-polygon"></i></div>
       <div class="card-title">辨認各邊、辨認三角比</div>
       <div class="card-desc">在直角三角形中，按次序點擊指定的邊（對、鄰、斜）。<br>然後點擊對應的三角比（sin, cos, tan）</div>
@@ -254,6 +281,40 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
       <div class="card-desc">即將推出，敬請期待</div>
       <div class="coming-soon">即將推出</div>
     </div>
+  </div>
+</div>
+
+<!-- ====== STUDENT FORM ====== -->
+<div id="student-form" class="page">
+  <div class="form-container">
+    <div class="form-header">
+      <div class="form-icon"><i class="fas fa-user-edit"></i></div>
+      <h2>學生資料</h2>
+      <p>請在開始遊戲前輸入你的資料</p>
+    </div>
+    <div class="form-fields">
+      <div class="form-group">
+        <label for="f-regno">註冊編號</label>
+        <input type="text" id="f-regno" placeholder="輸入註冊編號" autocomplete="off">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-class">班別</label>
+          <input type="text" id="f-class" placeholder="例：3A" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="f-classno">班號</label>
+          <input type="text" id="f-classno" placeholder="例：15" inputmode="numeric" autocomplete="off">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="f-name">姓名</label>
+        <input type="text" id="f-name" placeholder="輸入你的姓名" autocomplete="off">
+      </div>
+    </div>
+    <div class="form-error" id="form-error"></div>
+    <button class="btn-start-game" onclick="submitStudentForm()"><i class="fas fa-play"></i> 開始遊戲</button>
+    <button class="btn-form-back" onclick="goHome()"><i class="fas fa-arrow-left"></i> 返回目錄</button>
   </div>
 </div>
 
@@ -300,6 +361,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
   <div class="results-card">
     <div class="results-emoji" id="results-emoji">🎉</div>
     <div class="results-title" id="results-title">做得好！</div>
+    <div class="results-student-info" id="results-student-info"></div>
     <div class="results-scores-row">
       <div class="results-score-ring">
         <div class="ring-label">辨認各邊</div>
@@ -323,6 +385,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
       </div>
     </div>
     <div class="results-msg" id="results-msg">繼續努力！</div>
+    <div class="submit-status" id="submit-status"></div>
     <div class="results-btns">
       <button class="rbtn rbtn-primary" onclick="replayGame()"><i class="fas fa-redo"></i> 再玩一次</button>
       <button class="rbtn rbtn-secondary" onclick="goHomeFromResults()"><i class="fas fa-home"></i> 回到目錄</button>
@@ -338,6 +401,29 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.classList.add('dark')}
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(e.matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}});
 
+/* =============================================
+   Google Form 自動匯出設定
+   =============================================
+   步驟：
+   1. 建立 Google Form，新增以下 6 個欄位（簡答題）：
+      註冊編號、班別、班號、姓名、辨認各邊得分、三角比得分
+   2. 將 GOOGLE_FORM_URL 替換為你的表單網址
+      （把網址結尾的 viewform 改成 formResponse）
+   3. 將每個 ENTRY_xxx 替換為對應欄位的 entry ID
+      （查看方法見下方說明）
+   留空則不會自動匯出。
+   ============================================= */
+var GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScTUMj85CyD-pLocIfv64wLIyBak3WbsP1sGk2lU7hKFjB_kg/formResponse';
+var ENTRY_REGNO   = 'entry.1852370334';
+var ENTRY_CLASS   = 'entry.833965759';
+var ENTRY_CLASSNO = 'entry.79507156';
+var ENTRY_NAME    = 'entry.302501095';
+var ENTRY_SIDE    = 'entry.356594970';
+var ENTRY_RATIO   = 'entry.1304568701';
+
+/* ===== STUDENT INFO ===== */
+var STUDENT = {reg_no:'', class_name:'', class_no:'', student_name:''};
+
 /* ===== CONSTANTS ===== */
 var SIDE_NAMES = {opp:'對邊', adj:'鄰邊', hyp:'斜邊'};
 var SIDE_COLORS = {opp:'#2563EB', adj:'#059669', hyp:'#9333EA'};
@@ -346,8 +432,7 @@ var SIDE_HINTS = {opp:'對邊：在考慮的角 θ 的對面', adj:'鄰邊：在
 var RATIO_MAP = {'opp_hyp':'sin','adj_hyp':'cos','opp_adj':'tan'};
 var RATIO_NAMES = {sin:'sin θ',cos:'cos θ',tan:'tan θ'};
 
-/* 8 right-triangle presets: v[0]=right-angle vertex, v[1], v[2]=other vertices
-   All verified: dot(v0→v1, v0→v2) = 0 */
+/* 8 right-triangle presets: v[0]=right-angle vertex, v[1], v[2]=other vertices */
 var TRIANGLES = [
   {v:[[70,315],[370,315],[70,55]]},
   {v:[[370,315],[70,315],[370,55]]},
@@ -372,6 +457,37 @@ var G = {step:0, q:null, triIdx:0, thetaIdx:1, sides:null, hadError:false, score
 /* ===== NAVIGATION ===== */
 function showPage(id){var ps=document.querySelectorAll('.page');for(var i=0;i<ps.length;i++){ps[i].classList.remove('active')}document.getElementById(id).classList.add('active');document.getElementById(id).style.animation='none';void document.getElementById(id).offsetHeight;document.getElementById(id).style.animation='fadeIn .35s ease';window.scrollTo(0,0)}
 function goHome(){showPage('home');hideResults()}
+
+/* ===== STUDENT FORM ===== */
+function showStudentForm(){
+  showPage('student-form');
+  document.getElementById('form-error').textContent='';
+}
+
+function submitStudentForm(){
+  var regNo=document.getElementById('f-regno').value.trim();
+  var cls=document.getElementById('f-class').value.trim();
+  var clsNo=document.getElementById('f-classno').value.trim();
+  var sname=document.getElementById('f-name').value.trim();
+  if(!regNo||!cls||!clsNo||!sname){
+    document.getElementById('form-error').textContent='\u26A0 \u8ACB\u586B\u5BEB\u6240\u6709\u6B04\u4F4D';
+    return;
+  }
+  STUDENT.reg_no=regNo;
+  STUDENT.class_name=cls;
+  STUDENT.class_no=clsNo;
+  STUDENT.student_name=sname;
+  document.getElementById('form-error').textContent='';
+  startGame();
+}
+
+/* Enter key support on form */
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&document.getElementById('student-form').classList.contains('active')){
+    submitStudentForm();
+  }
+});
+
 function startGame(){
   G.score=0;G.total=0;G.streak=0;G.qNum=0;G.lastTriIdx=-1;G.lastQIdx=-1;
   G.qResults=[];G.ratioScore=0;G.ratioTotal=0;G.ratioResults=[];G.phase='sides';
@@ -469,20 +585,13 @@ function drawTriangle(){
   var vB=tri.v[2];
   var svg=document.getElementById('tri-svg');
   var h='';
-  /* fill */
   h+='<polygon points="'+R[0]+','+R[1]+' '+vA[0]+','+vA[1]+' '+vB[0]+','+vB[1]+'" fill="var(--tri-fill)" stroke="none"/>';
-  /* right angle marker */
   h+=drawRightAngle(R,vA,vB);
-  /* theta arc */
-  var tNeighbors=[R,O];
-  /* T connects to R (adjacent) and O (hypotenuse on the other end). But for the arc, we need the two OTHER vertices as seen from T */
   h+=drawThetaArc(T,R,O);
-  /* sides */
   h+=makeSideLine('hyp',T[0],T[1],O[0],O[1]);
   h+=makeSideLine('opp',R[0],R[1],O[0],O[1]);
   h+=makeSideLine('adj',R[0],R[1],T[0],T[1]);
   svg.innerHTML=h;
-  /* store side endpoints for labels later */
   G.sides={
     hyp:{from:T,to:O},
     opp:{from:R,to:O},
@@ -497,18 +606,18 @@ function updateInstruction(){
   var n1=SIDE_NAMES[G.q.first];
   var n2=SIDE_NAMES[G.q.second];
   if(G.step===0){
-    el.innerHTML='點擊<span class="inst-active">'+n1+'</span>，然後<span class="inst-pending">'+n2+'</span>。';
+    el.innerHTML='\u9EDE\u64CA<span class="inst-active">'+n1+'</span>\uFF0C\u7136\u5F8C<span class="inst-pending">'+n2+'</span>\u3002';
   }else if(G.step===1){
-    el.innerHTML='<span class="inst-done">✓ '+n1+'</span><span class="inst-arrow">→</span>點擊<span class="inst-active">'+n2+'</span>';
+    el.innerHTML='<span class="inst-done">\u2713 '+n1+'</span><span class="inst-arrow">\u2192</span>\u9EDE\u64CA<span class="inst-active">'+n2+'</span>';
   }else{
-    el.innerHTML='<span class="inst-done">✓ '+n1+'</span><span class="inst-arrow">→</span><span class="inst-done">✓ '+n2+'</span>';
+    el.innerHTML='<span class="inst-done">\u2713 '+n1+'</span><span class="inst-arrow">\u2192</span><span class="inst-done">\u2713 '+n2+'</span>';
   }
 }
 
 /* ===== SCORE ===== */
 function updateScore(){
   document.getElementById('g-score').querySelector('span').textContent=G.score+'/'+G.total;
-  document.getElementById('g-qnum').textContent='第 '+G.qNum+'/'+TOTAL_QUESTIONS+' 題';
+  document.getElementById('g-qnum').textContent='\u7B2C '+G.qNum+'/'+TOTAL_QUESTIONS+' \u984C';
   var sk=document.getElementById('g-streak');
   sk.querySelector('span').textContent=G.streak;
   if(G.streak>=3){sk.classList.add('hot');setTimeout(function(){sk.classList.remove('hot')},500)}
@@ -518,13 +627,11 @@ function updateScore(){
 function newQuestion(){
   if(G.qNum>=TOTAL_QUESTIONS){showResults();return}
   G.qNum++;
-  /* pick triangle (avoid repeating same one) */
   var ti;
   do{ti=rand(0,TRIANGLES.length-1)}while(ti===G.lastTriIdx&&TRIANGLES.length>1);
   G.lastTriIdx=ti;
   G.triIdx=ti;
   G.thetaIdx=Math.random()>.5?1:2;
-  /* pick question (avoid repeating) */
   var qi;
   do{qi=rand(0,QUESTIONS.length-1)}while(qi===G.lastQIdx&&QUESTIONS.length>1);
   G.lastQIdx=qi;
@@ -540,7 +647,6 @@ function newQuestion(){
   document.getElementById('feedback').textContent='';
   document.getElementById('next-btn').style.display='none';
   document.getElementById('ratio-card').style.display='none';
-  /* remove old labels and hints */
   var oldEls=document.querySelectorAll('.side-label-wrap');
   for(var i=0;i<oldEls.length;i++){oldEls[i].parentNode.removeChild(oldEls[i])}
   document.getElementById('hint-stack').innerHTML='';
@@ -573,7 +679,6 @@ function showSideHint(sideKey){
 function handleClick(clicked,groupEl){
   var target=(G.step===0)?G.q.first:G.q.second;
   if(clicked===target){
-    /* correct */
     groupEl.classList.add('selected');
     groupEl.classList.add('disabled');
     showSideHint(clicked);
@@ -584,15 +689,13 @@ function handleClick(clicked,groupEl){
       updateInstruction();
     }
   }else{
-    /* check if clicking already-selected side */
     if(groupEl.classList.contains('selected'))return;
-    /* wrong */
     G.hadError=true;
     groupEl.classList.add('wrong-anim');
     setTimeout(function(){groupEl.classList.remove('wrong-anim')},550);
     var clickedName=SIDE_NAMES[clicked];
     var targetName=SIDE_NAMES[target];
-    showToast('這是'+clickedName+'，不是'+targetName+'！','error');
+    showToast('\u9019\u662F'+clickedName+'\uFF0C\u4E0D\u662F'+targetName+'\uFF01','error');
   }
 }
 
@@ -609,17 +712,16 @@ function completeQuestion(){
     G.score++;
     G.streak++;
     fb.className='feedback-bar correct';
-    fb.textContent='✓ 完美！兩步都答對了！';
+    fb.textContent='\u2713 \u5B8C\u7F8E\uFF01\u5169\u6B65\u90FD\u7B54\u5C0D\u4E86\uFF01';
     if(G.streak>=3){spawnConfetti()}
-    showToast('完美！','success');
+    showToast('\u5B8C\u7F8E\uFF01','success');
   }else{
     G.streak=0;
     fb.className='feedback-bar correct';
-    fb.textContent='✓ 正確！繼續加油！';
+    fb.textContent='\u2713 \u6B63\u78BA\uFF01\u7E7C\u7E8C\u52A0\u6CB9\uFF01';
   }
   updateScore();
   showSideLabels();
-  /* show ratio question after a brief pause */
   setTimeout(function(){showRatioQuestion()},600);
 }
 
@@ -637,8 +739,7 @@ function showRatioQuestion(){
     +'<div class="frac-line"></div>'
     +'<div class="frac-den" style="color:'+c2+'">'+n2+'</div>'
     +'</div></div>'
-    +'<div class="ratio-q-text">是屬於哪一個三角比？</div>';
-  /* reset buttons */
+    +'<div class="ratio-q-text">\u662F\u5C6C\u65BC\u54EA\u4E00\u500B\u4E09\u89D2\u6BD4\uFF1F</div>';
   var btns=document.querySelectorAll('.ratio-btn');
   for(var i=0;i<btns.length;i++){
     btns[i].className='ratio-btn';
@@ -655,7 +756,6 @@ function handleRatioClick(chosen,btnEl){
   var key=G.q.first+'_'+G.q.second;
   var correct=RATIO_MAP[key];
   if(chosen===correct){
-    /* correct */
     btnEl.classList.add('correct-ratio');
     G.phase='done';
     G.ratioTotal++;
@@ -665,27 +765,24 @@ function handleRatioClick(chosen,btnEl){
     updateRatioScore();
     var fbEl=document.getElementById('ratio-feedback');
     if(ratioPerf){
-      fbEl.innerHTML='<span style="color:var(--green)">✓ 正確！'+n1n2Ratio()+' = '+RATIO_NAMES[correct]+'</span>';
+      fbEl.innerHTML='<span style="color:var(--green)">\u2713 \u6B63\u78BA\uFF01'+n1n2Ratio()+' = '+RATIO_NAMES[correct]+'</span>';
     }else{
-      fbEl.innerHTML='<span style="color:var(--green)">✓ 答對了！'+n1n2Ratio()+' = '+RATIO_NAMES[correct]+'</span>';
+      fbEl.innerHTML='<span style="color:var(--green)">\u2713 \u7B54\u5C0D\u4E86\uFF01'+n1n2Ratio()+' = '+RATIO_NAMES[correct]+'</span>';
     }
-    /* disable all buttons */
     var btns=document.querySelectorAll('.ratio-btn');
     for(var i=0;i<btns.length;i++){btns[i].classList.add('disabled-ratio')}
-    /* show next button */
     var btn=document.getElementById('next-btn');
     if(G.qNum>=TOTAL_QUESTIONS){
-      btn.textContent='查看成績 →';
+      btn.textContent='\u67E5\u770B\u6210\u7E3E \u2192';
     }else{
-      btn.textContent='下一題 →';
+      btn.textContent='\u4E0B\u4E00\u984C \u2192';
     }
     btn.style.display='block';
   }else{
-    /* wrong */
     G.ratioHadError=true;
     btnEl.classList.add('wrong-ratio');
     btnEl.classList.add('disabled-ratio');
-    document.getElementById('ratio-feedback').innerHTML='<span style="color:var(--red)">✗ '+RATIO_NAMES[chosen]+' 不正確，再試一次！</span>';
+    document.getElementById('ratio-feedback').innerHTML='<span style="color:var(--red)">\u2717 '+RATIO_NAMES[chosen]+' \u4E0D\u6B63\u78BA\uFF0C\u518D\u8A66\u4E00\u6B21\uFF01</span>';
   }
 }
 
@@ -707,7 +804,7 @@ function showSideLabels(){
   var scaleX=svgRect.width/vbW;
   var scaleY=svgRect.height/vbH;
   var keys=['hyp','opp','adj'];
-  var names=['斜邊','對邊','鄰邊'];
+  var names=['\u659C\u908A','\u5C0D\u908A','\u9130\u908A'];
   var colors=[SIDE_COLORS.hyp,SIDE_COLORS.opp,SIDE_COLORS.adj];
   var bgs=[SIDE_BG.hyp,SIDE_BG.opp,SIDE_BG.adj];
   for(var i=0;i<keys.length;i++){
@@ -749,18 +846,68 @@ function showResults(){
   var totalMax=TOTAL_QUESTIONS*2;
   var pct=totalScore/totalMax;
   var emoji,title,msg;
-  if(pct===1){emoji='🏆';title='滿分！太厲害了！';msg='你完美地完成了所有題目，沒有任何錯誤！'}
-  else if(pct>=0.83){emoji='🎉';title='非常出色！';msg='你對三角比有很好的掌握！'}
-  else if(pct>=0.5){emoji='👍';title='做得不錯！';msg='繼續練習，你會越來越好！'}
-  else{emoji='💪';title='繼續努力！';msg='多練習幾次，一定可以掌握！'}
+  if(pct===1){emoji='\uD83C\uDFC6';title='\u6EFF\u5206\uFF01\u592A\u53B2\u5BB3\u4E86\uFF01';msg='\u4F60\u5B8C\u7F8E\u5730\u5B8C\u6210\u4E86\u6240\u6709\u984C\u76EE\uFF0C\u6C92\u6709\u4EFB\u4F55\u932F\u8AA4\uFF01'}
+  else if(pct>=0.83){emoji='\uD83C\uDF89';title='\u975E\u5E38\u51FA\u8272\uFF01';msg='\u4F60\u5C0D\u4E09\u89D2\u6BD4\u6709\u5F88\u597D\u7684\u638C\u63E1\uFF01'}
+  else if(pct>=0.5){emoji='\uD83D\uDC4D';title='\u505A\u5F97\u4E0D\u932F\uFF01';msg='\u7E7C\u7E8C\u7DF4\u7FD2\uFF0C\u4F60\u6703\u8D8A\u4F86\u8D8A\u597D\uFF01'}
+  else{emoji='\uD83D\uDCAA';title='\u7E7C\u7E8C\u52AA\u529B\uFF01';msg='\u591A\u7DF4\u7FD2\u5E7E\u6B21\uFF0C\u4E00\u5B9A\u53EF\u4EE5\u638C\u63E1\uFF01'}
   document.getElementById('results-emoji').textContent=emoji;
   document.getElementById('results-title').textContent=title;
   document.getElementById('results-msg').textContent=msg;
+
+  /* Show student info */
+  var infoEl=document.getElementById('results-student-info');
+  infoEl.innerHTML=''
+    +'<span class="student-tag"><i class="fas fa-id-card"></i> '+escHtml(STUDENT.reg_no)+'</span>'
+    +'<span class="student-tag"><i class="fas fa-school"></i> '+escHtml(STUDENT.class_name)+'</span>'
+    +'<span class="student-tag"><i class="fas fa-hashtag"></i> '+escHtml(STUDENT.class_no)+'</span>'
+    +'<span class="student-tag"><i class="fas fa-user"></i> '+escHtml(STUDENT.student_name)+'</span>';
+
   animateRing('ring-fill','ring-text',G.score,TOTAL_QUESTIONS);
   animateRing('ring-fill-2','ring-text-2',G.ratioScore,TOTAL_QUESTIONS);
   var overlay=document.getElementById('results-overlay');
   overlay.classList.add('active');
   if(pct>=0.83){spawnConfetti()}
+
+  /* Auto-submit to Google Form */
+  submitToGoogleForm();
+}
+
+function escHtml(s){
+  var d=document.createElement('div');
+  d.textContent=s;
+  return d.innerHTML;
+}
+
+/* ===== GOOGLE FORM EXPORT ===== */
+function submitToGoogleForm(){
+  var el=document.getElementById('submit-status');
+  if(!GOOGLE_FORM_URL){
+    el.innerHTML='';
+    return;
+  }
+  el.className='submit-status sending';
+  el.innerHTML='<i class="fas fa-spinner fa-spin"></i> \u6B63\u5728\u63D0\u4EA4\u6210\u7E3E\u2026';
+
+  var formData=new URLSearchParams();
+  formData.append(ENTRY_REGNO,  STUDENT.reg_no);
+  formData.append(ENTRY_CLASS,  STUDENT.class_name);
+  formData.append(ENTRY_CLASSNO,STUDENT.class_no);
+  formData.append(ENTRY_NAME,   STUDENT.student_name);
+  formData.append(ENTRY_SIDE,   G.score+'/'+TOTAL_QUESTIONS);
+  formData.append(ENTRY_RATIO,  G.ratioScore+'/'+TOTAL_QUESTIONS);
+
+  fetch(GOOGLE_FORM_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:formData.toString()
+  }).then(function(){
+    el.className='submit-status';
+    el.innerHTML='<i class="fas fa-check-circle"></i> \u6210\u7E3E\u5DF2\u50B3\u9001';
+  }).catch(function(){
+    el.className='submit-status send-error';
+    el.innerHTML='<i class="fas fa-exclamation-circle"></i> \u50B3\u9001\u5931\u6557\uFF0C\u8ACB\u544A\u77E5\u8001\u5E2B';
+  });
 }
 
 /* ===== INIT ===== */
