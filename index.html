@@ -54,6 +54,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 @keyframes confettiFall{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}100%{transform:translateY(100vh) rotate(720deg) scale(.3);opacity:0}}
 @keyframes labelPop{from{opacity:0;transform:translate(-50%,-50%) scale(.7)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes snapIn{from{transform:scale(1.2);opacity:0}to{transform:scale(1);opacity:1}}
 
 /* ===== HOME PAGE ===== */
 #home{background:linear-gradient(135deg,var(--amber-bg) 0%,var(--teal-bg) 40%,var(--blue-bg) 100%);animation:fadeIn .4s ease;justify-content:center}
@@ -106,7 +107,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .btn-form-back{width:100%;height:44px;border:1px solid var(--border);border-radius:12px;background:transparent;color:var(--text2);font-size:.92rem;font-weight:600;font-family:'Noto Sans TC',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:transform .15s}
 .btn-form-back:active{transform:scale(.97)}
 
-/* ===== GAME PAGE ===== */
+/* ===== GAME PAGE (shared) ===== */
 .game-page{background:var(--bg)}
 .game-topbar{display:flex;align-items:center;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--border);z-index:10;gap:10px;flex-shrink:0}
 .btn-back{width:40px;height:40px;border-radius:12px;border:1px solid var(--border);background:var(--bg2);color:var(--text);font-size:1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -132,14 +133,12 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .tri-container{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:visible;margin-bottom:8px;touch-action:manipulation;flex:1 1 0%;min-height:0;display:flex;align-items:center;justify-content:center}
 .tri-container svg{display:block;width:100%;height:100%;max-height:100%;user-select:none;-webkit-user-select:none}
 
-/* ===== SVG SIDE STYLES ===== */
+/* ===== SVG SIDE STYLES (Game1) ===== */
 .side-vis{transition:stroke .2s ease,stroke-width .2s ease;stroke-linecap:round}
 .side-group:not(.selected):not(.wrong-anim) .side-hit{cursor:pointer}
 .side-group.selected .side-vis{stroke:var(--blue)!important;stroke-width:5!important}
 .side-group.wrong-anim .side-vis{animation:wrongFlash .5s ease;stroke-width:5!important}
 .side-group.disabled .side-hit{cursor:default;pointer-events:none}
-
-/* hover only on devices that support it */
 @media(hover:hover){
   .side-group:not(.selected):not(.disabled):hover .side-vis{stroke:rgba(37,99,235,.5)!important;stroke-width:5!important}
 }
@@ -176,7 +175,6 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 /* ===== RATIO QUESTION CARD ===== */
 .ratio-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:18px;margin-bottom:14px;box-shadow:var(--shadow);animation:slideUp .3s ease}
 .ratio-question{text-align:center;font-weight:600;margin-bottom:16px;color:var(--text)}
-/* visual fraction */
 .frac-display{display:flex;justify-content:center;margin-bottom:12px}
 .frac{display:inline-flex;flex-direction:column;align-items:center;background:var(--purple-bg);padding:12px 28px;border-radius:14px;gap:0}
 .frac-num,.frac-den{font-family:'Noto Sans TC',sans-serif;font-size:1.25rem;font-weight:700;padding:4px 6px;line-height:1.3}
@@ -190,9 +188,79 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 .ratio-btn.wrong-ratio{background:var(--red-bg)!important;border-color:var(--red)!important;color:var(--red)!important;animation:shake .4s ease}
 .ratio-btn.disabled-ratio{pointer-events:none;opacity:.5}
 .ratio-feedback{text-align:center;margin-top:12px;font-weight:600;font-size:.92rem;animation:fadeIn .3s ease}
-
-/* ===== SCORE BADGES ===== */
 .score-badge.score-ratio{background:var(--purple-bg);color:var(--purple)}
+
+/* ===== GAME 2: STEP INDICATOR ===== */
+.g2-steps{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;font-size:.78rem}
+.g2-step{padding:4px 8px;border-radius:8px;font-weight:600;background:var(--bg2);color:var(--muted);transition:all .25s;white-space:nowrap}
+.g2-step.active{background:var(--blue-light);color:var(--blue)}
+.g2-step.done{background:var(--green-bg);color:var(--green)}
+.g2-step-sep{color:var(--muted);font-size:.7rem}
+
+/* ===== GAME 2: DRAG CHIPS ===== */
+.drag-chip-tray{display:flex;justify-content:center;gap:8px;padding:8px 4px;flex-wrap:wrap;flex-shrink:0;min-height:48px}
+.drag-chip{padding:8px 16px;border-radius:12px;font-weight:700;font-size:.95rem;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;transition:opacity .15s,transform .15s;font-family:'Noto Sans TC',sans-serif;border:2px solid transparent;position:relative}
+.drag-chip:active{cursor:grabbing}
+.drag-chip.placed{display:none!important}
+.chip-opp{background:#DBEAFE;color:#2563EB;border-color:#93C5FD}
+.chip-adj{background:#DCFCE7;color:#059669;border-color:#6EE7B7}
+.chip-hyp{background:#EDE9FE;color:#7C3AED;border-color:#C4B5FD}
+.chip-sin{background:#FEF3C7;color:#B45309;border-color:#FCD34D}
+.chip-cos{background:#CCFBF1;color:#0D9488;border-color:#5EEAD4}
+.chip-tan{background:#FCE7F3;color:#BE185D;border-color:#F9A8D4}
+.chip-val{background:var(--bg2);color:var(--text);border-color:var(--border);font-family:'Source Code Pro',monospace;font-size:1.05rem}
+.chip-var{background:var(--bg2);color:var(--text);border-color:var(--border);font-family:'Source Code Pro',monospace;font-size:1.05rem;font-style:italic}
+.drag-ghost{border-radius:12px;transition:none!important}
+
+/* ===== GAME 2: FORMULA CARD ===== */
+.g2-formula-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:14px;margin-bottom:8px;box-shadow:var(--shadow);animation:slideUp .3s ease}
+.g2-formula-row{display:flex;align-items:center;justify-content:center;gap:6px;font-family:'Source Code Pro',monospace;font-size:1.2rem;font-weight:700;margin-bottom:8px}
+.g2-slot{min-width:52px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;padding:0 8px;transition:all .2s}
+.g2-slot-empty{border:2px dashed var(--muted);background:var(--bg2);color:var(--muted)}
+.g2-slot-filled{border:2px solid var(--green);background:var(--green-bg);color:var(--green);animation:snapIn .25s ease}
+.g2-slot.slot-hover{border-color:var(--blue)!important;background:var(--blue-light)!important;transform:scale(1.06)}
+.g2-slot-sin{border-color:#D97706!important;background:#FEF3C7!important;color:#B45309!important}
+.g2-slot-cos{border-color:#0D9488!important;background:#CCFBF1!important;color:#0D9488!important}
+.g2-slot-tan{border-color:#BE185D!important;background:#FCE7F3!important;color:#BE185D!important}
+.g2-formula-angle{font-size:1.1rem;color:var(--text)}
+.g2-formula-eq{font-size:1.3rem;color:var(--text);margin:0 4px}
+.g2-frac{display:inline-flex;flex-direction:column;align-items:center;gap:0}
+.g2-frac-line{width:100%;height:3px;background:var(--text);border-radius:2px;margin:2px 0}
+.g2-formula-label{text-align:center;font-size:.82rem;color:var(--text2);margin-bottom:6px;font-weight:500}
+.g2-formula-hint{text-align:center;padding:8px 12px;border-radius:10px;background:var(--amber-bg);border:1px solid var(--amber);font-size:.82rem;font-weight:600;color:var(--amber);margin-bottom:8px;animation:slideUp .3s ease;line-height:1.6}
+.g2-degree{font-family:'Source Code Pro',monospace;font-size:1.2rem;font-weight:700;color:var(--text);margin-left:2px}
+
+/* ===== GAME 2: ANSWER CARD ===== */
+.g2-answer-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:16px;margin-bottom:8px;box-shadow:var(--shadow);animation:slideUp .3s ease}
+.g2-answer-label{text-align:center;font-family:'Source Code Pro',monospace;font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:10px}
+.g2-answer-row{display:flex;align-items:center;justify-content:center;gap:8px}
+.g2-answer-row .g2-var{font-family:'Source Code Pro',monospace;font-size:1.2rem;font-weight:700;font-style:italic;color:var(--text)}
+.g2-answer-row .g2-eq{font-family:'Source Code Pro',monospace;font-size:1.2rem;color:var(--text)}
+.g2-answer-input{width:120px;height:48px;border:2px solid var(--border);border-radius:12px;text-align:center;font-size:18px;font-family:'Source Code Pro',monospace;font-weight:700;background:var(--bg2);color:var(--text);transition:border-color .2s}
+.g2-answer-input:focus{outline:none;border-color:var(--purple)}
+.g2-submit-btn{height:48px;padding:0 20px;border:none;border-radius:12px;font-size:1rem;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--purple),#5B21B6);transition:transform .15s}
+.g2-submit-btn:active{transform:scale(.97)}
+.g2-submit-btn:disabled{opacity:.5;cursor:default}
+.g2-answer-feedback{text-align:center;margin-top:10px;font-weight:600;font-size:.92rem;min-height:24px}
+
+/* ===== GAME 2: NUMBER PAD ===== */
+.g2-numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-width:240px;margin:12px auto 0}
+.g2-numpad-btn{height:46px;border:1px solid var(--border);border-radius:10px;background:var(--bg2);color:var(--text);font-size:1.15rem;font-weight:700;font-family:'Source Code Pro',monospace;cursor:pointer;transition:background .15s,transform .1s;display:flex;align-items:center;justify-content:center;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.g2-numpad-btn:active{transform:scale(.93);background:var(--border)}
+@media(hover:hover){.g2-numpad-btn:hover{background:var(--border)}}
+.g2-numpad-btn.np-del{color:var(--red);font-size:1.05rem}
+.g2-numpad-btn.np-dot{font-size:1.5rem;line-height:1}
+.g2-numpad-btn.np-confirm{grid-column:1/-1;background:linear-gradient(135deg,var(--purple),#5B21B6);color:#fff;font-family:'Noto Sans TC',sans-serif;font-size:1rem;height:48px;border:none;letter-spacing:2px}
+.g2-numpad-btn.np-confirm:active{transform:scale(.97)}
+.g2-numpad-btn.np-confirm:disabled{opacity:.5;cursor:default;transform:none}
+.g2-numpad.disabled .g2-numpad-btn:not(.np-confirm){opacity:.4;pointer-events:none}
+
+/* ===== GAME 2: SCORE BADGES ===== */
+.score-badge.score-formula{background:var(--green-bg);color:var(--green)}
+.score-badge.score-answer{background:var(--purple-bg);color:var(--purple)}
+
+/* ===== GAME 2: SCROLLABLE BODY ===== */
+#game2 .game-body{overflow-y:auto;-webkit-overflow-scrolling:touch}
 
 /* ===== LANDSCAPE (iPad) LAYOUT ===== */
 @media(min-width:700px) and (orientation:landscape){
@@ -212,6 +280,11 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
   .frac{padding:10px 24px}
   .frac-num,.frac-den{font-size:1.3rem}
   .feedback-bar{padding:8px;font-size:.88rem;margin-top:4px}
+  /* Game 2 landscape */
+  #game2 .game-body{overflow:hidden}
+  #game2 .game-right{width:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .g2-formula-card{margin-bottom:6px;padding:12px}
+  .g2-answer-card{margin-bottom:6px;padding:12px}
 }
 
 /* ===== PROGRESS DOTS ===== */
@@ -263,17 +336,17 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
     <div class="badge">中三數學科</div>
   </div>
   <div class="game-grid">
-    <div class="game-card card-c1" onclick="showStudentForm()">
+    <div class="game-card card-c1" onclick="showStudentForm(1)">
       <div class="card-icon"><i class="fas fa-draw-polygon"></i></div>
       <div class="card-title">辨認各邊、辨認三角比</div>
       <div class="card-desc">在直角三角形中，按次序點擊指定的邊（對、鄰、斜）。<br>然後點擊對應的三角比（sin, cos, tan）</div>
       <div class="card-arrow"><i class="fas fa-chevron-right"></i></div>
     </div>
-    <div class="game-card card-c2 disabled">
+    <div class="game-card card-c2" onclick="showStudentForm(2)">
       <div class="card-icon"><i class="fas fa-calculator"></i></div>
-      <div class="card-title">遊戲二</div>
-      <div class="card-desc">即將推出，敬請期待</div>
-      <div class="coming-soon">即將推出</div>
+      <div class="card-title">求三角比未知數</div>
+      <div class="card-desc">利用三角比建立算式，然後求出直角三角形的未知邊長。<br>拖拉操作，逐步建立算式並計算答案</div>
+      <div class="card-arrow"><i class="fas fa-chevron-right"></i></div>
     </div>
     <div class="game-card card-c3 disabled">
       <div class="card-icon"><i class="fas fa-ruler-combined"></i></div>
@@ -290,7 +363,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
     <div class="form-header">
       <div class="form-icon"><i class="fas fa-user-edit"></i></div>
       <h2>學生資料</h2>
-      <p>請在開始遊戲前輸入你的資料</p>
+      <p id="form-subtitle">請在開始遊戲前輸入你的資料</p>
     </div>
     <div class="form-fields">
       <div class="form-group">
@@ -356,6 +429,91 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
   </div>
 </div>
 
+<!-- ====== GAME 2 ====== -->
+<div id="game2" class="page game-page">
+  <div class="game-topbar">
+    <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+    <div class="game-title">求三角比未知數</div>
+    <div class="qnum-badge" id="g2-qnum">第 1/6 題</div>
+    <div class="streak-badge" id="g2-streak"><i class="fas fa-fire"></i> <span>0</span></div>
+    <div class="score-badge score-formula" id="g2-score-formula"><i class="fas fa-pencil-alt"></i> <span>0/0</span></div>
+    <div class="score-badge score-answer" id="g2-score-answer"><i class="fas fa-check"></i> <span>0/0</span></div>
+  </div>
+  <div class="progress-wrap" id="g2-progress-dots"></div>
+  <div class="game-body">
+    <div class="game-layout">
+      <div class="game-left">
+        <!-- Step indicator -->
+        <div class="instruction-card" id="g2-instruction">
+          <div class="g2-steps" id="g2-steps">
+            <span class="g2-step active" data-step="1">① 辨認各邊</span>
+            <span class="g2-step-sep">›</span>
+            <span class="g2-step" data-step="2">② 三角比</span>
+            <span class="g2-step-sep">›</span>
+            <span class="g2-step" data-step="3">③ 算式</span>
+            <span class="g2-step-sep">›</span>
+            <span class="g2-step" data-step="4">④ 答案</span>
+          </div>
+        </div>
+        <!-- Triangle -->
+        <div class="tri-container" id="g2-tri-wrap" style="position:relative">
+          <svg id="g2-tri-svg" viewBox="0 0 420 380"></svg>
+        </div>
+        <!-- Side chips tray (Step 1) -->
+        <div class="drag-chip-tray" id="g2-side-chips"></div>
+      </div>
+      <div class="game-right" id="g2-game-right">
+        <!-- Formula card (Steps 2 & 3) -->
+        <div class="g2-formula-card" id="g2-formula-card" style="display:none">
+          <div class="g2-formula-label" id="g2-formula-label">建立三角比算式</div>
+          <div class="g2-formula-hint" id="g2-formula-hint" style="display:none"></div>
+          <div class="g2-formula-row">
+            <div class="g2-slot g2-slot-empty" id="g2-slot-trig">?</div>
+            <span class="g2-formula-angle" id="g2-angle-label">(54°)</span>
+            <span class="g2-formula-eq">=</span>
+            <div class="g2-frac">
+              <div class="g2-slot g2-slot-empty" id="g2-slot-num">?</div>
+              <div class="g2-frac-line"></div>
+              <div class="g2-slot g2-slot-empty" id="g2-slot-den">?</div>
+            </div>
+          </div>
+          <!-- Trig / Value chip tray (Steps 2 & 3) -->
+          <div class="drag-chip-tray" id="g2-chip-tray"></div>
+        </div>
+        <!-- Answer card (Step 4) -->
+        <div class="g2-answer-card" id="g2-answer-card" style="display:none">
+          <div class="g2-answer-label" id="g2-answer-label">計算未知數</div>
+          <div class="g2-answer-row">
+            <span class="g2-var" id="g2-answer-var">r</span>
+            <span class="g2-eq">=</span>
+            <input type="text" class="g2-answer-input" id="g2-answer-input" placeholder="?" readonly>
+            <span class="g2-degree" id="g2-degree" style="display:none">&deg;</span>
+          </div>
+          <div class="g2-numpad" id="g2-numpad">
+            <button class="g2-numpad-btn" onclick="g2NumPad('7')">7</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('8')">8</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('9')">9</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('4')">4</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('5')">5</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('6')">6</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('1')">1</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('2')">2</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('3')">3</button>
+            <button class="g2-numpad-btn np-dot" onclick="g2NumPad('.')">.</button>
+            <button class="g2-numpad-btn" onclick="g2NumPad('0')">0</button>
+            <button class="g2-numpad-btn np-del" onclick="g2NumPad('del')"><i class="fas fa-backspace"></i></button>
+            <button class="g2-numpad-btn np-confirm" id="g2-submit-btn" onclick="g2CheckAnswer()">確認</button>
+          </div>
+          <div class="g2-answer-feedback" id="g2-answer-feedback"></div>
+        </div>
+        <!-- Feedback & Next -->
+        <div class="feedback-bar" id="g2-feedback"></div>
+        <button class="btn-next" id="g2-next-btn" onclick="g2NewQuestion()">下一題 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ====== RESULTS OVERLAY ====== -->
 <div class="results-overlay" id="results-overlay">
   <div class="results-card">
@@ -364,7 +522,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
     <div class="results-student-info" id="results-student-info"></div>
     <div class="results-scores-row">
       <div class="results-score-ring">
-        <div class="ring-label">辨認各邊</div>
+        <div class="ring-label" id="ring-label-1">辨認各邊</div>
         <div class="ring-wrap">
           <svg class="ring-svg" viewBox="0 0 120 120">
             <circle class="ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
@@ -374,7 +532,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
         </div>
       </div>
       <div class="results-score-ring">
-        <div class="ring-label">三角比</div>
+        <div class="ring-label" id="ring-label-2">三角比</div>
         <div class="ring-wrap">
           <svg class="ring-svg" viewBox="0 0 120 120">
             <circle class="ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="8"/>
@@ -387,7 +545,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
     <div class="results-msg" id="results-msg">繼續努力！</div>
     <div class="submit-status" id="submit-status"></div>
     <div class="results-btns">
-      <button class="rbtn rbtn-primary" onclick="replayGame()"><i class="fas fa-redo"></i> 再玩一次</button>
+      <button class="rbtn rbtn-primary" onclick="replayCurrentGame()"><i class="fas fa-redo"></i> 再玩一次</button>
       <button class="rbtn rbtn-secondary" onclick="goHomeFromResults()"><i class="fas fa-home"></i> 回到目錄</button>
     </div>
   </div>
@@ -402,16 +560,12 @@ if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(e){if(e.matches){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}});
 
 /* =============================================
-   Google Form 自動匯出設定
-   =============================================
-   步驟：
-   1. 建立 Google Form，新增以下 6 個欄位（簡答題）：
-      註冊編號、班別、班號、姓名、辨認各邊得分、三角比得分
-   2. 將 GOOGLE_FORM_URL 替換為你的表單網址
-      （把網址結尾的 viewform 改成 formResponse）
-   3. 將每個 ENTRY_xxx 替換為對應欄位的 entry ID
-      （查看方法見下方說明）
-   留空則不會自動匯出。
+   CURRENT GAME TRACKER
+   ============================================= */
+var CURRENT_GAME = 0;
+
+/* =============================================
+   Google Form 自動匯出設定 — 遊戲一
    ============================================= */
 var GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScTUMj85CyD-pLocIfv64wLIyBak3WbsP1sGk2lU7hKFjB_kg/formResponse';
 var ENTRY_REGNO   = 'entry.1852370334';
@@ -421,10 +575,24 @@ var ENTRY_NAME    = 'entry.302501095';
 var ENTRY_SIDE    = 'entry.356594970';
 var ENTRY_RATIO   = 'entry.1304568701';
 
+/* =============================================
+   Google Form 自動匯出設定 — 遊戲二
+   步驟同遊戲一：建立新的 Google Form，
+   新增 6 個欄位（註冊編號、班別、班號、姓名、算式得分、答案得分），
+   替換下方的 URL 和 entry ID。
+   ============================================= */
+var GOOGLE_FORM_URL_2 = '';
+var ENTRY2_REGNO   = 'entry.XXXXXXXXX';
+var ENTRY2_CLASS   = 'entry.XXXXXXXXX';
+var ENTRY2_CLASSNO = 'entry.XXXXXXXXX';
+var ENTRY2_NAME    = 'entry.XXXXXXXXX';
+var ENTRY2_FORMULA = 'entry.XXXXXXXXX';
+var ENTRY2_ANSWER  = 'entry.XXXXXXXXX';
+
 /* ===== STUDENT INFO ===== */
 var STUDENT = {reg_no:'', class_name:'', class_no:'', student_name:''};
 
-/* ===== CONSTANTS ===== */
+/* ===== GAME 1 CONSTANTS ===== */
 var SIDE_NAMES = {opp:'對邊', adj:'鄰邊', hyp:'斜邊'};
 var SIDE_COLORS = {opp:'#2563EB', adj:'#059669', hyp:'#9333EA'};
 var SIDE_BG = {opp:'#DBEAFE', adj:'#DCFCE7', hyp:'#EDE9FE'};
@@ -432,7 +600,6 @@ var SIDE_HINTS = {opp:'對邊：在考慮的角 θ 的對面', adj:'鄰邊：在
 var RATIO_MAP = {'opp_hyp':'sin','adj_hyp':'cos','opp_adj':'tan'};
 var RATIO_NAMES = {sin:'sin θ',cos:'cos θ',tan:'tan θ'};
 
-/* 8 right-triangle presets: v[0]=right-angle vertex, v[1], v[2]=other vertices */
 var TRIANGLES = [
   {v:[[70,315],[370,315],[70,55]]},
   {v:[[370,315],[70,315],[370,55]]},
@@ -451,7 +618,7 @@ var QUESTIONS = [
 ];
 var TOTAL_QUESTIONS = 6;
 
-/* ===== GAME STATE ===== */
+/* ===== GAME 1 STATE ===== */
 var G = {step:0, q:null, triIdx:0, thetaIdx:1, sides:null, hadError:false, score:0, total:0, streak:0, locked:false, lastTriIdx:-1, lastQIdx:-1, qNum:0, qResults:[], ratioScore:0, ratioTotal:0, ratioHadError:false, ratioResults:[], phase:'sides'};
 
 /* ===== NAVIGATION ===== */
@@ -459,7 +626,8 @@ function showPage(id){var ps=document.querySelectorAll('.page');for(var i=0;i<ps
 function goHome(){showPage('home');hideResults()}
 
 /* ===== STUDENT FORM ===== */
-function showStudentForm(){
+function showStudentForm(gameNum){
+  CURRENT_GAME = gameNum;
   showPage('student-form');
   document.getElementById('form-error').textContent='';
 }
@@ -478,7 +646,8 @@ function submitStudentForm(){
   STUDENT.class_no=clsNo;
   STUDENT.student_name=sname;
   document.getElementById('form-error').textContent='';
-  startGame();
+  if(CURRENT_GAME===2){startGame2();}
+  else{startGame();}
 }
 
 /* Enter key support on form */
@@ -488,7 +657,9 @@ document.addEventListener('keydown',function(e){
   }
 });
 
+/* ===== GAME 1: START / REPLAY ===== */
 function startGame(){
+  CURRENT_GAME=1;
   G.score=0;G.total=0;G.streak=0;G.qNum=0;G.lastTriIdx=-1;G.lastQIdx=-1;
   G.qResults=[];G.ratioScore=0;G.ratioTotal=0;G.ratioResults=[];G.phase='sides';
   updateScore();
@@ -497,7 +668,7 @@ function startGame(){
   showPage('game1');
   newQuestion();
 }
-function replayGame(){hideResults();startGame()}
+function replayCurrentGame(){hideResults();if(CURRENT_GAME===2){startGame2();}else{startGame();}}
 function goHomeFromResults(){hideResults();goHome()}
 function hideResults(){document.getElementById('results-overlay').classList.remove('active')}
 function buildProgressDots(){
@@ -528,6 +699,8 @@ function showToast(msg,type){
 }
 
 function spawnConfetti(){var c=document.createElement('div');c.className='confetti-box';document.body.appendChild(c);var cols=['#D97706','#0D9488','#7C3AED','#DB2777','#2563EB','#16A34A','#EAB308'];for(var i=0;i<28;i++){var p=document.createElement('div');p.className='confetti-piece';p.style.left=rand(5,95)+'%';p.style.top=rand(-10,20)+'%';p.style.background=cols[rand(0,cols.length-1)];p.style.animationDelay=(Math.random()*.5)+'s';p.style.animationDuration=(1+Math.random())+'s';p.style.width=rand(6,12)+'px';p.style.height=rand(6,12)+'px';p.style.borderRadius=Math.random()>.5?'50%':'2px';c.appendChild(p)}setTimeout(function(){if(c.parentNode){c.parentNode.removeChild(c)}},2600)}
+
+function shuffleArr(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 
 /* ===== DRAWING HELPERS ===== */
 function drawRightAngle(R,vA,vB){
@@ -561,7 +734,7 @@ function drawThetaArc(T,vA,vB){
   var lx=(T[0]+lr*Math.cos(midA)).toFixed(1);
   var ly=(T[1]+lr*Math.sin(midA)+5).toFixed(1);
   var html='<polygon points="'+pts+'" fill="rgba(37,99,235,.12)" stroke="#3B82F6" stroke-width="1.5"/>';
-  html+='<text x="'+lx+'" y="'+ly+'" font-size="18" fill="#2563EB" text-anchor="middle" font-style="italic" font-family="serif">θ</text>';
+  html+='<text x="'+lx+'" y="'+ly+'" font-size="18" fill="#2563EB" text-anchor="middle" font-style="italic" font-family="serif">\u03B8</text>';
   return html;
 }
 
@@ -573,7 +746,7 @@ function makeSideLine(key,x1,y1,x2,y2){
   return html;
 }
 
-/* ===== DRAW TRIANGLE ===== */
+/* ===== DRAW TRIANGLE (Game 1) ===== */
 function drawTriangle(){
   var tri=TRIANGLES[G.triIdx];
   var R=tri.v[0];
@@ -600,7 +773,7 @@ function drawTriangle(){
   G.centroid=[(R[0]+T[0]+O[0])/3,(R[1]+T[1]+O[1])/3];
 }
 
-/* ===== INSTRUCTION ===== */
+/* ===== INSTRUCTION (Game 1) ===== */
 function updateInstruction(){
   var el=document.getElementById('instruction');
   var n1=SIDE_NAMES[G.q.first];
@@ -614,7 +787,7 @@ function updateInstruction(){
   }
 }
 
-/* ===== SCORE ===== */
+/* ===== SCORE (Game 1) ===== */
 function updateScore(){
   document.getElementById('g-score').querySelector('span').textContent=G.score+'/'+G.total;
   document.getElementById('g-qnum').textContent='\u7B2C '+G.qNum+'/'+TOTAL_QUESTIONS+' \u984C';
@@ -623,7 +796,7 @@ function updateScore(){
   if(G.streak>=3){sk.classList.add('hot');setTimeout(function(){sk.classList.remove('hot')},500)}
 }
 
-/* ===== NEW QUESTION ===== */
+/* ===== NEW QUESTION (Game 1) ===== */
 function newQuestion(){
   if(G.qNum>=TOTAL_QUESTIONS){showResults();return}
   G.qNum++;
@@ -652,7 +825,7 @@ function newQuestion(){
   document.getElementById('hint-stack').innerHTML='';
 }
 
-/* ===== CLICK HANDLER ===== */
+/* ===== CLICK HANDLER (Game 1) ===== */
 document.getElementById('tri-svg').addEventListener('click',function(e){
   if(G.locked)return;
   var el=e.target;
@@ -699,7 +872,7 @@ function handleClick(clicked,groupEl){
   }
 }
 
-/* ===== COMPLETE SIDES ===== */
+/* ===== COMPLETE SIDES (Game 1) ===== */
 function completeQuestion(){
   G.locked=true;
   G.total++;
@@ -725,7 +898,7 @@ function completeQuestion(){
   setTimeout(function(){showRatioQuestion()},600);
 }
 
-/* ===== RATIO QUESTION ===== */
+/* ===== RATIO QUESTION (Game 1) ===== */
 function showRatioQuestion(){
   G.phase='ratio';
   G.ratioHadError=false;
@@ -794,7 +967,7 @@ function updateRatioScore(){
   document.getElementById('g-ratio-score').querySelector('span').textContent=G.ratioScore+'/'+G.ratioTotal;
 }
 
-/* ===== SIDE LABELS (after completion) ===== */
+/* ===== SIDE LABELS (Game 1, after completion) ===== */
 function showSideLabels(){
   var wrap=document.getElementById('tri-wrap');
   var svg=document.getElementById('tri-svg');
@@ -826,7 +999,7 @@ function showSideLabels(){
   }
 }
 
-/* ===== RESULTS SCREEN ===== */
+/* ===== RESULTS SCREEN (Game 1) ===== */
 function animateRing(circleId,textId,score,total){
   var pct=total>0?score/total:0;
   document.getElementById(textId).textContent=score+'/'+total;
@@ -841,7 +1014,29 @@ function animateRing(circleId,textId,score,total){
   setTimeout(function(){circle.style.strokeDashoffset=offset.toFixed(2)},50);
 }
 
+function showResultsCommon(emoji,title,msg,s1,t1,s2,t2,label1,label2,submitFn){
+  document.getElementById('results-emoji').textContent=emoji;
+  document.getElementById('results-title').textContent=title;
+  document.getElementById('results-msg').textContent=msg;
+  document.getElementById('ring-label-1').textContent=label1;
+  document.getElementById('ring-label-2').textContent=label2;
+  /* Show student info */
+  var infoEl=document.getElementById('results-student-info');
+  infoEl.innerHTML=''
+    +'<span class="student-tag"><i class="fas fa-id-card"></i> '+escHtml(STUDENT.reg_no)+'</span>'
+    +'<span class="student-tag"><i class="fas fa-school"></i> '+escHtml(STUDENT.class_name)+'</span>'
+    +'<span class="student-tag"><i class="fas fa-hashtag"></i> '+escHtml(STUDENT.class_no)+'</span>'
+    +'<span class="student-tag"><i class="fas fa-user"></i> '+escHtml(STUDENT.student_name)+'</span>';
+  animateRing('ring-fill','ring-text',s1,t1);
+  animateRing('ring-fill-2','ring-text-2',s2,t2);
+  document.getElementById('results-overlay').classList.add('active');
+  var pct=(s1+s2)/(t1+t2);
+  if(pct>=0.83){spawnConfetti()}
+  submitFn();
+}
+
 function showResults(){
+  CURRENT_GAME=1;
   var totalScore=G.score+G.ratioScore;
   var totalMax=TOTAL_QUESTIONS*2;
   var pct=totalScore/totalMax;
@@ -850,26 +1045,7 @@ function showResults(){
   else if(pct>=0.83){emoji='\uD83C\uDF89';title='\u975E\u5E38\u51FA\u8272\uFF01';msg='\u4F60\u5C0D\u4E09\u89D2\u6BD4\u6709\u5F88\u597D\u7684\u638C\u63E1\uFF01'}
   else if(pct>=0.5){emoji='\uD83D\uDC4D';title='\u505A\u5F97\u4E0D\u932F\uFF01';msg='\u7E7C\u7E8C\u7DF4\u7FD2\uFF0C\u4F60\u6703\u8D8A\u4F86\u8D8A\u597D\uFF01'}
   else{emoji='\uD83D\uDCAA';title='\u7E7C\u7E8C\u52AA\u529B\uFF01';msg='\u591A\u7DF4\u7FD2\u5E7E\u6B21\uFF0C\u4E00\u5B9A\u53EF\u4EE5\u638C\u63E1\uFF01'}
-  document.getElementById('results-emoji').textContent=emoji;
-  document.getElementById('results-title').textContent=title;
-  document.getElementById('results-msg').textContent=msg;
-
-  /* Show student info */
-  var infoEl=document.getElementById('results-student-info');
-  infoEl.innerHTML=''
-    +'<span class="student-tag"><i class="fas fa-id-card"></i> '+escHtml(STUDENT.reg_no)+'</span>'
-    +'<span class="student-tag"><i class="fas fa-school"></i> '+escHtml(STUDENT.class_name)+'</span>'
-    +'<span class="student-tag"><i class="fas fa-hashtag"></i> '+escHtml(STUDENT.class_no)+'</span>'
-    +'<span class="student-tag"><i class="fas fa-user"></i> '+escHtml(STUDENT.student_name)+'</span>';
-
-  animateRing('ring-fill','ring-text',G.score,TOTAL_QUESTIONS);
-  animateRing('ring-fill-2','ring-text-2',G.ratioScore,TOTAL_QUESTIONS);
-  var overlay=document.getElementById('results-overlay');
-  overlay.classList.add('active');
-  if(pct>=0.83){spawnConfetti()}
-
-  /* Auto-submit to Google Form */
-  submitToGoogleForm();
+  showResultsCommon(emoji,title,msg,G.score,TOTAL_QUESTIONS,G.ratioScore,TOTAL_QUESTIONS,'\u8FA8\u8A8D\u5404\u908A','\u4E09\u89D2\u6BD4',submitToGoogleForm);
 }
 
 function escHtml(s){
@@ -878,7 +1054,7 @@ function escHtml(s){
   return d.innerHTML;
 }
 
-/* ===== GOOGLE FORM EXPORT ===== */
+/* ===== GOOGLE FORM EXPORT (Game 1) ===== */
 function submitToGoogleForm(){
   var el=document.getElementById('submit-status');
   if(!GOOGLE_FORM_URL){
@@ -899,6 +1075,799 @@ function submitToGoogleForm(){
   fetch(GOOGLE_FORM_URL,{
     method:'POST',
     mode:'no-cors',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:formData.toString()
+  }).then(function(){
+    el.className='submit-status';
+    el.innerHTML='<i class="fas fa-check-circle"></i> \u6210\u7E3E\u5DF2\u50B3\u9001';
+  }).catch(function(){
+    el.className='submit-status send-error';
+    el.innerHTML='<i class="fas fa-exclamation-circle"></i> \u50B3\u9001\u5931\u6557\uFF0C\u8ACB\u544A\u77E5\u8001\u5E2B';
+  });
+}
+
+/* =================================================================
+   GAME 2: 求三角比未知數
+   ================================================================= */
+var G2_TOTAL = 6;
+var G2_SIDE_NAMES = {opp:'對邊', adj:'鄰邊', hyp:'斜邊'};
+var G2_SIDE_COLORS = {opp:'#2563EB', adj:'#059669', hyp:'#7C3AED'};
+var G2_SIDE_BG = {opp:'#DBEAFE', adj:'#DCFCE7', hyp:'#EDE9FE'};
+
+var G2_BANK = [
+  {angle:54,knownSide:'opp',knownVal:39,unknownSide:'hyp',unknownVar:'r'},
+  {angle:35,knownSide:'hyp',knownVal:50,unknownSide:'opp',unknownVar:'x'},
+  {angle:42,knownSide:'opp',knownVal:27,unknownSide:'hyp',unknownVar:'c'},
+  {angle:40,knownSide:'adj',knownVal:25,unknownSide:'hyp',unknownVar:'h'},
+  {angle:60,knownSide:'hyp',knownVal:44,unknownSide:'adj',unknownVar:'a'},
+  {angle:28,knownSide:'hyp',knownVal:55,unknownSide:'adj',unknownVar:'p'},
+  {angle:50,knownSide:'opp',knownVal:30,unknownSide:'adj',unknownVar:'b'},
+  {angle:28,knownSide:'adj',knownVal:36,unknownSide:'opp',unknownVar:'y'},
+  {angle:55,knownSide:'adj',knownVal:32,unknownSide:'hyp',unknownVar:'d'},
+  {angle:33,knownSide:'adj',knownVal:48,unknownSide:'opp',unknownVar:'q'},
+  {angle:65,knownSide:'opp',knownVal:42,unknownSide:'hyp',unknownVar:'k'},
+  {angle:48,knownSide:'hyp',knownVal:60,unknownSide:'opp',unknownVar:'m'}
+];
+
+var G2_BANK_ANGLE = [
+  {side1:'opp',val1:39,side2:'hyp',val2:48,unknownVar:'\u03B8'},
+  {side1:'adj',val1:30,side2:'hyp',val2:55,unknownVar:'\u03B8'},
+  {side1:'opp',val1:25,side2:'adj',val2:36,unknownVar:'\u03B8'},
+  {side1:'opp',val1:42,side2:'hyp',val2:60,unknownVar:'\u03B8'},
+  {side1:'adj',val1:40,side2:'hyp',val2:52,unknownVar:'\u03B8'},
+  {side1:'opp',val1:28,side2:'adj',val2:45,unknownVar:'\u03B8'}
+];
+
+var G2_TRIS = [
+  {v:[[70,315],[70,55],[370,315]]},
+  {v:[[370,315],[370,55],[70,315]]},
+  {v:[[60,310],[60,100],[380,310]]},
+  {v:[[380,310],[380,100],[60,310]]}
+];
+
+var G2 = {};
+
+function getG2Ratio(s1,s2){
+  var k=[s1,s2].sort().join('_');
+  return {adj_hyp:'cos',adj_opp:'tan',hyp_opp:'sin'}[k];
+}
+
+function toSigFigs(num,n){
+  if(num===0)return 0;
+  var d=Math.ceil(Math.log10(Math.abs(num)));
+  var power=n-d;
+  var magnitude=Math.pow(10,power);
+  return Math.round(num*magnitude)/magnitude;
+}
+
+function g2ShowFormulaHint(){
+  var hint=document.getElementById('g2-formula-hint');
+  hint.innerHTML='sin \u03B8 = \u5C0D\u908A/\u659C\u908A\u3000cos \u03B8 = \u9130\u908A/\u659C\u908A\u3000tan \u03B8 = \u5C0D\u908A/\u9130\u908A';
+  hint.style.display='block';
+  hint.style.animation='none';
+  void hint.offsetHeight;
+  hint.style.animation='slideUp .3s ease';
+}
+
+/* ===== G2: START ===== */
+function startGame2(){
+  CURRENT_GAME=2;
+  G2={
+    phase:'sides',qNum:0,q:null,triIdx:0,thetaIdx:1,
+    sides:null,centroid:null,sidePlaced:{},
+    sideErrors:false,trigErrors:false,formulaErrors:false,answerErrors:false,
+    formulaScore:0,formulaTotal:0,answerScore:0,answerTotal:0,
+    formulaResults:[],answerResults:[],streak:0,
+    questions:[],correctRatio:'',correctNumVal:'',correctDenVal:'',
+    correctAnswer:0,numPlaced:false,denPlaced:false
+  };
+  var sideIdx=[];
+  for(var i=0;i<G2_BANK.length;i++)sideIdx.push(i);
+  shuffleArr(sideIdx);
+  for(var si=0;si<3;si++){
+    var sq=JSON.parse(JSON.stringify(G2_BANK[sideIdx[si]]));
+    sq.type='findSide';
+    G2.questions.push(sq);
+  }
+  var angleIdx=[];
+  for(var ai=0;ai<G2_BANK_ANGLE.length;ai++)angleIdx.push(ai);
+  shuffleArr(angleIdx);
+  for(var aj=0;aj<3;aj++){
+    var aq=JSON.parse(JSON.stringify(G2_BANK_ANGLE[angleIdx[aj]]));
+    aq.type='findAngle';
+    G2.questions.push(aq);
+  }
+  shuffleArr(G2.questions);
+  g2UpdateTopbar();
+  g2BuildProgressDots();
+  showPage('game2');
+  g2NewQuestion();
+}
+
+/* ===== G2: TOPBAR ===== */
+function g2UpdateTopbar(){
+  document.getElementById('g2-qnum').textContent='\u7B2C '+G2.qNum+'/'+G2_TOTAL+' \u984C';
+  document.getElementById('g2-streak').querySelector('span').textContent=G2.streak;
+  document.getElementById('g2-score-formula').querySelector('span').textContent=G2.formulaScore+'/'+G2.formulaTotal;
+  document.getElementById('g2-score-answer').querySelector('span').textContent=G2.answerScore+'/'+G2.answerTotal;
+}
+
+/* ===== G2: PROGRESS DOTS ===== */
+function g2BuildProgressDots(){
+  var wrap=document.getElementById('g2-progress-dots');
+  var h='';
+  for(var i=0;i<G2_TOTAL;i++){h+='<div class="progress-dot" id="g2-pdot-'+i+'"></div>'}
+  wrap.innerHTML=h;
+}
+function g2UpdateProgressDots(){
+  for(var i=0;i<G2_TOTAL;i++){
+    var dot=document.getElementById('g2-pdot-'+i);
+    if(!dot)continue;
+    dot.className='progress-dot';
+    if(i<G2.formulaResults.length){
+      var ok=G2.formulaResults[i]&&G2.answerResults[i];
+      dot.classList.add(ok?'done-ok':'done-err');
+    }else if(i===G2.qNum-1){
+      dot.classList.add('current');
+    }
+  }
+}
+
+/* ===== G2: NEW QUESTION ===== */
+function g2NewQuestion(){
+  if(G2.qNum>=G2_TOTAL){g2ShowResults();return}
+  var q=G2.questions[G2.qNum];
+  G2.q=q;
+  G2.qNum++;
+  G2.phase='sides';
+  G2.sidePlaced={};
+  G2.sideErrors=false;
+  G2.trigErrors=false;
+  G2.formulaErrors=false;
+  G2.answerErrors=false;
+  G2.numPlaced=false;
+  G2.denPlaced=false;
+
+  G2.triIdx=rand(0,G2_TRIS.length-1);
+  G2.thetaIdx=Math.random()>0.5?1:2;
+
+  var ratio,numSide,denSide;
+  if(q.type==='findAngle'){
+    ratio=getG2Ratio(q.side1,q.side2);
+    G2.correctRatio=ratio;
+    numSide=(ratio==='cos')?'adj':'opp';
+    denSide=(ratio==='tan')?'adj':'hyp';
+    G2.correctNumVal=(q.side1===numSide)?String(q.val1):String(q.val2);
+    G2.correctDenVal=(q.side1===denSide)?String(q.val1):String(q.val2);
+    var nv=parseFloat(G2.correctNumVal),dv=parseFloat(G2.correctDenVal);
+    var invFn={sin:'asin',cos:'acos',tan:'atan'}[ratio];
+    var rawAngle=Math[invFn](nv/dv)*180/Math.PI;
+    G2.correctAnswerExact=rawAngle;
+    G2.correctAnswerInt=Math.round(rawAngle);
+    G2.correctAnswer3sf=toSigFigs(rawAngle,3);
+  }else{
+    ratio=getG2Ratio(q.knownSide,q.unknownSide);
+    G2.correctRatio=ratio;
+    numSide=(ratio==='cos')?'adj':'opp';
+    denSide=(ratio==='tan')?'adj':'hyp';
+    G2.correctNumVal=(q.knownSide===numSide)?String(q.knownVal):q.unknownVar;
+    G2.correctDenVal=(q.knownSide===denSide)?String(q.knownVal):q.unknownVar;
+    var rad=q.angle*Math.PI/180;
+    var tv={sin:Math.sin(rad),cos:Math.cos(rad),tan:Math.tan(rad)}[ratio];
+    var rawVal;
+    if(q.unknownSide===numSide){rawVal=q.knownVal*tv}else{rawVal=q.knownVal/tv}
+    G2.correctAnswerExact=rawVal;
+    G2.correctAnswerInt=Math.round(rawVal);
+    G2.correctAnswer3sf=toSigFigs(rawVal,3);
+  }
+
+  g2DrawTriangle();
+  g2UpdateTopbar();
+  g2UpdateProgressDots();
+
+  /* Reset formula slots */
+  document.getElementById('g2-slot-trig').textContent='?';
+  document.getElementById('g2-slot-trig').className='g2-slot g2-slot-empty';
+  document.getElementById('g2-slot-num').textContent='?';
+  document.getElementById('g2-slot-num').className='g2-slot g2-slot-empty';
+  document.getElementById('g2-slot-den').textContent='?';
+  document.getElementById('g2-slot-den').className='g2-slot g2-slot-empty';
+  document.getElementById('g2-angle-label').textContent=(q.type==='findAngle')?'(\u03B8)':'('+q.angle+'\u00B0)';
+  document.getElementById('g2-formula-hint').style.display='none';
+  document.getElementById('g2-degree').style.display='none';
+
+  /* Reset answer */
+  document.getElementById('g2-answer-card').style.display='none';
+  document.getElementById('g2-answer-input').value='';
+  document.getElementById('g2-answer-input').disabled=false;
+  document.getElementById('g2-answer-feedback').innerHTML='';
+  document.getElementById('g2-submit-btn').disabled=false;
+
+  document.getElementById('g2-next-btn').style.display='none';
+  document.getElementById('g2-feedback').className='feedback-bar';
+  document.getElementById('g2-feedback').textContent='';
+
+  g2SetPhase('sides');
+}
+
+/* ===== G2: DRAW TRIANGLE ===== */
+function g2DrawTriangle(){
+  var tri=G2_TRIS[G2.triIdx];
+  var R=tri.v[0];
+  var tIdx=G2.thetaIdx;
+  var oIdx=(tIdx===1)?2:1;
+  var T=tri.v[tIdx];
+  var O=tri.v[oIdx];
+  var vA=tri.v[1];
+  var vB=tri.v[2];
+
+  var svg=document.getElementById('g2-tri-svg');
+  var h='';
+
+  /* Fill */
+  h+='<polygon points="'+R[0]+','+R[1]+' '+vA[0]+','+vA[1]+' '+vB[0]+','+vB[1]+'" fill="var(--tri-fill)" stroke="none"/>';
+
+  /* Sides */
+  h+='<line x1="'+R[0]+'" y1="'+R[1]+'" x2="'+vA[0]+'" y2="'+vA[1]+'" stroke="var(--tri-stroke)" stroke-width="3" id="g2-line-side1"/>';
+  h+='<line x1="'+R[0]+'" y1="'+R[1]+'" x2="'+vB[0]+'" y2="'+vB[1]+'" stroke="var(--tri-stroke)" stroke-width="3" id="g2-line-side2"/>';
+  h+='<line x1="'+vA[0]+'" y1="'+vA[1]+'" x2="'+vB[0]+'" y2="'+vB[1]+'" stroke="var(--tri-stroke)" stroke-width="3" id="g2-line-side3"/>';
+
+  /* Right angle mark */
+  h+=drawRightAngle(R,vA,vB);
+
+  /* Angle arc with degree value */
+  var r2=30;
+  var angA=Math.atan2(R[1]-T[1],R[0]-T[0]);
+  var angB=Math.atan2(O[1]-T[1],O[0]-T[0]);
+  var adiff=angB-angA;
+  while(adiff>Math.PI)adiff-=2*Math.PI;
+  while(adiff<-Math.PI)adiff+=2*Math.PI;
+  var nPts=20;
+  var arcPts=T[0].toFixed(1)+','+T[1].toFixed(1);
+  for(var i=0;i<=nPts;i++){
+    var t2=i/nPts;
+    var aa=angA+t2*adiff;
+    arcPts+=' '+(T[0]+r2*Math.cos(aa)).toFixed(1)+','+(T[1]+r2*Math.sin(aa)).toFixed(1);
+  }
+  h+='<polygon points="'+arcPts+'" fill="rgba(220,38,38,.12)" stroke="#DC2626" stroke-width="1.5"/>';
+  var midAng=angA+adiff/2;
+  var lr2=r2+20;
+  var alx=(T[0]+lr2*Math.cos(midAng)).toFixed(1);
+  var aly=(T[1]+lr2*Math.sin(midAng)+5).toFixed(1);
+  var arcLabel=(G2.q.type==='findAngle')?'?':(G2.q.angle+'\u00B0');
+  h+='<text x="'+alx+'" y="'+aly+'" font-size="17" fill="#DC2626" text-anchor="middle" font-weight="700" font-family=\'Noto Sans TC\',sans-serif>'+arcLabel+'</text>';
+
+  /* Store sides */
+  G2.sides={
+    hyp:{from:T,to:O},
+    opp:(tIdx===1)?{from:R,to:O}:{from:R,to:vA},
+    adj:(tIdx===1)?{from:R,to:T}:{from:R,to:T}
+  };
+  /* Correct side definitions based on theta position */
+  G2.sides.hyp={from:T,to:O};
+  if(tIdx===1){
+    G2.sides.opp={from:R,to:O};
+    G2.sides.adj={from:R,to:T};
+  }else{
+    G2.sides.opp={from:R,to:vA};
+    G2.sides.adj={from:R,to:T};
+  }
+  G2.centroid=[(R[0]+T[0]+O[0])/3,(R[1]+T[1]+O[1])/3];
+
+  /* Side value labels */
+  var q=G2.q;
+  var sideKeys=['hyp','opp','adj'];
+  for(var si=0;si<sideKeys.length;si++){
+    var sk=sideKeys[si];
+    var s=G2.sides[sk];
+    var mx=(s.from[0]+s.to[0])/2;
+    var my=(s.from[1]+s.to[1])/2;
+    var dx=mx-G2.centroid[0],dy=my-G2.centroid[1];
+    var len=Math.sqrt(dx*dx+dy*dy);
+    if(len>0){mx+=dx/len*28;my+=dy/len*28}
+
+    var label='';
+    var fs='normal';
+    if(q.type==='findAngle'){
+      if(sk===q.side1)label=String(q.val1);
+      else if(sk===q.side2)label=String(q.val2);
+    }else{
+      if(sk===q.knownSide){label=String(q.knownVal)}
+      else if(sk===q.unknownSide){label=q.unknownVar;fs='italic'}
+    }
+
+    if(label){
+      h+='<text x="'+mx.toFixed(1)+'" y="'+(my+6).toFixed(1)+'" font-size="22" fill="var(--text)" text-anchor="middle" font-weight="700" font-style="'+fs+'" font-family=\'Source Code Pro\',monospace>'+label+'</text>';
+    }
+  }
+
+  /* Highlight lines for drag feedback */
+  sideKeys.forEach(function(sk){
+    var s=G2.sides[sk];
+    h+='<line class="g2-hl" id="g2-hl-'+sk+'" x1="'+s.from[0]+'" y1="'+s.from[1]+'" x2="'+s.to[0]+'" y2="'+s.to[1]+'" stroke="transparent" stroke-width="10" pointer-events="none" stroke-linecap="round"/>';
+  });
+
+  svg.innerHTML=h;
+}
+
+/* ===== G2: PHASE MANAGEMENT ===== */
+function g2SetPhase(phase){
+  G2.phase=phase;
+  g2UpdateSteps();
+
+  if(phase==='sides'){
+    document.getElementById('g2-side-chips').style.display='flex';
+    document.getElementById('g2-formula-card').style.display='none';
+    document.getElementById('g2-answer-card').style.display='none';
+    g2InitSideChips();
+  }else if(phase==='trig'){
+    document.getElementById('g2-side-chips').style.display='none';
+    document.getElementById('g2-formula-card').style.display='block';
+    document.getElementById('g2-formula-card').style.animation='none';
+    void document.getElementById('g2-formula-card').offsetHeight;
+    document.getElementById('g2-formula-card').style.animation='slideUp .3s ease';
+    document.getElementById('g2-formula-label').textContent='\u62D6\u62C9\u6B63\u78BA\u7684\u4E09\u89D2\u6BD4';
+    g2InitTrigChips();
+  }else if(phase==='formula'){
+    document.getElementById('g2-formula-label').textContent='\u62D6\u62C9\u5404\u908A\u5230\u6B63\u78BA\u4F4D\u7F6E';
+    g2InitValueChips();
+  }else if(phase==='answer'){
+    document.getElementById('g2-formula-label').textContent='\u7B97\u5F0F\u5B8C\u6210 \u2714';
+    document.getElementById('g2-chip-tray').innerHTML='';
+    document.getElementById('g2-answer-card').style.display='block';
+    document.getElementById('g2-answer-card').style.animation='none';
+    void document.getElementById('g2-answer-card').offsetHeight;
+    document.getElementById('g2-answer-card').style.animation='slideUp .3s ease';
+    if(G2.q.type==='findAngle'){
+      document.getElementById('g2-answer-var').textContent='\u03B8';
+      document.getElementById('g2-answer-label').textContent='\u8A08\u7B97 \u03B8 \u7684\u503C\uFF08\u6E96\u78BA\u81F3\u6574\u6578\u6216\u4E09\u4F4D\u6709\u6548\u6578\u5B57\uFF09';
+      document.getElementById('g2-degree').style.display='inline';
+    }else{
+      document.getElementById('g2-answer-var').textContent=G2.q.unknownVar;
+      document.getElementById('g2-answer-label').textContent='\u8A08\u7B97 '+G2.q.unknownVar+' \u7684\u503C\uFF08\u6E96\u78BA\u81F3\u6574\u6578\u6216\u4E09\u4F4D\u6709\u6548\u6578\u5B57\uFF09';
+      document.getElementById('g2-degree').style.display='none';
+    }
+    document.getElementById('g2-answer-input').disabled=false;
+    document.getElementById('g2-submit-btn').disabled=false;
+    document.getElementById('g2-numpad').classList.remove('disabled');
+  }
+}
+
+function g2UpdateSteps(){
+  var steps=document.querySelectorAll('#g2-steps .g2-step');
+  var phaseNum={sides:1,trig:2,formula:3,answer:4}[G2.phase]||1;
+  for(var i=0;i<steps.length;i++){
+    var sn=parseInt(steps[i].getAttribute('data-step'),10);
+    steps[i].className='g2-step';
+    if(sn<phaseNum)steps[i].classList.add('done');
+    else if(sn===phaseNum)steps[i].classList.add('active');
+  }
+}
+
+/* ===== G2: INIT CHIPS ===== */
+function g2InitSideChips(){
+  var tray=document.getElementById('g2-side-chips');
+  tray.innerHTML='';
+  var chips=[
+    {val:'opp',label:'\u5C0D\u908A',cls:'chip-opp'},
+    {val:'adj',label:'\u9130\u908A',cls:'chip-adj'},
+    {val:'hyp',label:'\u659C\u908A',cls:'chip-hyp'}
+  ];
+  shuffleArr(chips);
+  for(var i=0;i<chips.length;i++){
+    var c=document.createElement('div');
+    c.className='drag-chip '+chips[i].cls;
+    c.setAttribute('data-value',chips[i].val);
+    c.textContent=chips[i].label;
+    tray.appendChild(c);
+    g2MakeDraggable(c);
+  }
+}
+
+function g2InitTrigChips(){
+  var tray=document.getElementById('g2-chip-tray');
+  tray.innerHTML='';
+  var chips=[
+    {val:'sin',label:'sin',cls:'chip-sin'},
+    {val:'cos',label:'cos',cls:'chip-cos'},
+    {val:'tan',label:'tan',cls:'chip-tan'}
+  ];
+  for(var i=0;i<chips.length;i++){
+    var c=document.createElement('div');
+    c.className='drag-chip '+chips[i].cls;
+    c.setAttribute('data-value',chips[i].val);
+    c.textContent=chips[i].label;
+    tray.appendChild(c);
+    g2MakeDraggable(c);
+  }
+  tray.style.display='flex';
+}
+
+function g2InitValueChips(){
+  var tray=document.getElementById('g2-chip-tray');
+  tray.innerHTML='';
+  var q=G2.q;
+  var chips;
+  if(q.type==='findAngle'){
+    chips=[
+      {val:String(q.val1),label:String(q.val1),cls:'chip-val'},
+      {val:String(q.val2),label:String(q.val2),cls:'chip-val'}
+    ];
+  }else{
+    chips=[
+      {val:String(q.knownVal),label:String(q.knownVal),cls:'chip-val'},
+      {val:q.unknownVar,label:q.unknownVar,cls:'chip-var'}
+    ];
+  }
+  shuffleArr(chips);
+  for(var i=0;i<chips.length;i++){
+    var c=document.createElement('div');
+    c.className='drag-chip '+chips[i].cls;
+    c.setAttribute('data-value',chips[i].val);
+    c.textContent=chips[i].label;
+    tray.appendChild(c);
+    g2MakeDraggable(c);
+  }
+}
+
+/* ===== G2: DRAG & DROP ENGINE ===== */
+function g2MakeDraggable(el){
+  var ghost=null,ox=0,oy=0,dragging=false;
+
+  function onStart(e){
+    if(el.classList.contains('placed'))return;
+    e.preventDefault();
+    e.stopPropagation();
+    dragging=true;
+    var pos=g2Pos(e);
+    var rect=el.getBoundingClientRect();
+    ox=pos.x-rect.left;
+    oy=pos.y-rect.top;
+
+    ghost=el.cloneNode(true);
+    ghost.classList.add('drag-ghost');
+    ghost.style.cssText='position:fixed;z-index:10000;pointer-events:none;opacity:0.88;transform:scale(1.08);box-shadow:0 8px 24px rgba(0,0,0,.3);left:'+rect.left+'px;top:'+rect.top+'px;width:'+rect.width+'px;';
+    document.body.appendChild(ghost);
+    el.style.opacity='0.3';
+
+    document.addEventListener('touchmove',onMove,{passive:false});
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('touchend',onEnd);
+    document.addEventListener('mouseup',onEnd);
+    document.addEventListener('touchcancel',onEnd);
+  }
+
+  function onMove(e){
+    if(!dragging)return;
+    e.preventDefault();
+    var pos=g2Pos(e);
+    ghost.style.left=(pos.x-ox)+'px';
+    ghost.style.top=(pos.y-oy)+'px';
+    g2HighlightTargets(pos.x,pos.y);
+  }
+
+  function onEnd(e){
+    if(!dragging)return;
+    dragging=false;
+    document.removeEventListener('touchmove',onMove);
+    document.removeEventListener('mousemove',onMove);
+    document.removeEventListener('touchend',onEnd);
+    document.removeEventListener('mouseup',onEnd);
+    document.removeEventListener('touchcancel',onEnd);
+
+    var pos=g2EndPos(e);
+    var accepted=g2HandleDrop(el,pos.x,pos.y);
+    if(!accepted){el.style.opacity='1'}
+
+    g2ClearHighlights();
+    if(ghost&&ghost.parentNode){ghost.parentNode.removeChild(ghost)}
+    ghost=null;
+  }
+
+  el.addEventListener('touchstart',onStart,{passive:false});
+  el.addEventListener('mousedown',onStart);
+}
+
+function g2Pos(e){
+  if(e.touches&&e.touches.length>0)return{x:e.touches[0].clientX,y:e.touches[0].clientY};
+  return{x:e.clientX,y:e.clientY};
+}
+function g2EndPos(e){
+  if(e.changedTouches&&e.changedTouches.length>0)return{x:e.changedTouches[0].clientX,y:e.changedTouches[0].clientY};
+  return{x:e.clientX,y:e.clientY};
+}
+
+/* ===== G2: DROP HANDLING ===== */
+function g2HandleDrop(chipEl,x,y){
+  var val=chipEl.getAttribute('data-value');
+
+  if(G2.phase==='sides'){
+    var closest=g2FindClosestSide(x,y);
+    if(closest)return g2OnSideDrop(chipEl,val,closest);
+  }else if(G2.phase==='trig'){
+    if(g2IsOver(x,y,document.getElementById('g2-slot-trig')))return g2OnTrigDrop(chipEl,val);
+  }else if(G2.phase==='formula'){
+    if(!G2.numPlaced&&g2IsOver(x,y,document.getElementById('g2-slot-num')))return g2OnValueDrop(chipEl,val,'num');
+    if(!G2.denPlaced&&g2IsOver(x,y,document.getElementById('g2-slot-den')))return g2OnValueDrop(chipEl,val,'den');
+  }
+  return false;
+}
+
+function g2IsOver(x,y,el){
+  var r=el.getBoundingClientRect();
+  var pad=10;
+  return x>=r.left-pad&&x<=r.right+pad&&y>=r.top-pad&&y<=r.bottom+pad;
+}
+
+/* ===== G2: SIDE DROP ===== */
+function g2OnSideDrop(chipEl,chipVal,sideKey){
+  if(chipVal===sideKey){
+    chipEl.classList.add('placed');
+    G2.sidePlaced[sideKey]=true;
+    g2ShowPlacedLabel(sideKey);
+    showToast('\u2713 '+G2_SIDE_NAMES[sideKey]+'\u6B63\u78BA\uFF01','success');
+    var count=0;for(var k in G2.sidePlaced)count++;
+    if(count===3){
+      setTimeout(function(){g2SetPhase('trig')},500);
+    }
+    return true;
+  }else{
+    G2.sideErrors=true;
+    g2FlashSide(sideKey);
+    showToast('\u9019\u689D\u4E0D\u662F'+G2_SIDE_NAMES[chipVal]+'\uFF01','error');
+    chipEl.style.opacity='1';
+    return false;
+  }
+}
+
+function g2ShowPlacedLabel(sideKey){
+  var svg=document.getElementById('g2-tri-svg');
+  var s=G2.sides[sideKey];
+  var mx=(s.from[0]+s.to[0])/2;
+  var my=(s.from[1]+s.to[1])/2;
+  /* Offset TOWARD centroid (inside triangle, away from value labels) */
+  var dx=G2.centroid[0]-mx,dy=G2.centroid[1]-my;
+  var len=Math.sqrt(dx*dx+dy*dy);
+  if(len>0){mx+=dx/len*20;my+=dy/len*20}
+
+  var col=G2_SIDE_COLORS[sideKey];
+  var bg=G2_SIDE_BG[sideKey];
+  var name=G2_SIDE_NAMES[sideKey];
+  var g=document.createElementNS('http://www.w3.org/2000/svg','g');
+  g.innerHTML='<rect x="'+(mx-26).toFixed(1)+'" y="'+(my-11).toFixed(1)+'" width="52" height="22" rx="6" fill="'+bg+'" stroke="'+col+'" stroke-width="1.5"/>'
+    +'<text x="'+mx.toFixed(1)+'" y="'+(my+4).toFixed(1)+'" font-size="12" fill="'+col+'" text-anchor="middle" font-weight="700" font-family=\'Noto Sans TC\',sans-serif>'+name+'</text>';
+  g.style.animation='snapIn .25s ease';
+  svg.appendChild(g);
+}
+
+function g2FlashSide(sideKey){
+  var hl=document.getElementById('g2-hl-'+sideKey);
+  if(hl){
+    hl.setAttribute('stroke','rgba(220,38,38,0.6)');
+    setTimeout(function(){hl.setAttribute('stroke','transparent')},500);
+  }
+}
+
+/* ===== G2: TRIG DROP ===== */
+function g2OnTrigDrop(chipEl,chipVal){
+  if(chipVal===G2.correctRatio){
+    chipEl.classList.add('placed');
+    var slot=document.getElementById('g2-slot-trig');
+    slot.textContent=chipVal;
+    slot.className='g2-slot g2-slot-filled g2-slot-'+chipVal;
+    showToast('\u2713 '+chipVal+' \u6B63\u78BA\uFF01','success');
+    setTimeout(function(){g2SetPhase('formula')},400);
+    return true;
+  }else{
+    G2.trigErrors=true;
+    g2ShowFormulaHint();
+    showToast(chipVal+' \u4E0D\u6B63\u78BA\uFF01','error');
+    chipEl.style.opacity='1';
+    return false;
+  }
+}
+
+/* ===== G2: VALUE DROP ===== */
+function g2OnValueDrop(chipEl,chipVal,slotType){
+  var expected=(slotType==='num')?G2.correctNumVal:G2.correctDenVal;
+  if(chipVal===expected){
+    chipEl.classList.add('placed');
+    var slot=document.getElementById('g2-slot-'+slotType);
+    slot.textContent=chipVal;
+    slot.className='g2-slot g2-slot-filled';
+    if(slotType==='num')G2.numPlaced=true;
+    else G2.denPlaced=true;
+
+    if(G2.numPlaced&&G2.denPlaced){
+      /* Formula complete! Score point 1 */
+      G2.formulaTotal++;
+      var perfect=!G2.sideErrors&&!G2.trigErrors&&!G2.formulaErrors;
+      G2.formulaResults.push(perfect);
+      if(perfect)G2.formulaScore++;
+      g2UpdateTopbar();
+      var fb=document.getElementById('g2-feedback');
+      if(perfect){
+        fb.className='feedback-bar correct';
+        fb.textContent='\u2713 \u7B97\u5F0F\u5B8C\u5168\u6B63\u78BA\uFF01';
+      }else{
+        fb.className='feedback-bar correct';
+        fb.textContent='\u2713 \u7B97\u5F0F\u5DF2\u5B8C\u6210\uFF01';
+      }
+      showToast('\u7B97\u5F0F\u6B63\u78BA\uFF01','success');
+      setTimeout(function(){g2SetPhase('answer')},600);
+    }
+    return true;
+  }else{
+    G2.formulaErrors=true;
+    g2ShowFormulaHint();
+    showToast('\u4F4D\u7F6E\u4E0D\u6B63\u78BA\uFF01','error');
+    chipEl.style.opacity='1';
+    return false;
+  }
+}
+
+/* ===== G2: HIGHLIGHT DURING DRAG ===== */
+function g2HighlightTargets(x,y){
+  if(G2.phase==='sides'){
+    var closest=g2FindClosestSide(x,y);
+    var sides=['hyp','opp','adj'];
+    for(var i=0;i<sides.length;i++){
+      var hl=document.getElementById('g2-hl-'+sides[i]);
+      if(hl)hl.setAttribute('stroke',(sides[i]===closest)?'rgba(37,99,235,0.5)':'transparent');
+    }
+  }else if(G2.phase==='trig'){
+    var s=document.getElementById('g2-slot-trig');
+    if(g2IsOver(x,y,s))s.classList.add('slot-hover');else s.classList.remove('slot-hover');
+  }else if(G2.phase==='formula'){
+    var sn=document.getElementById('g2-slot-num');
+    var sd=document.getElementById('g2-slot-den');
+    if(!G2.numPlaced){if(g2IsOver(x,y,sn))sn.classList.add('slot-hover');else sn.classList.remove('slot-hover')}
+    if(!G2.denPlaced){if(g2IsOver(x,y,sd))sd.classList.add('slot-hover');else sd.classList.remove('slot-hover')}
+  }
+}
+
+function g2ClearHighlights(){
+  var sides=['hyp','opp','adj'];
+  for(var i=0;i<sides.length;i++){
+    var hl=document.getElementById('g2-hl-'+sides[i]);
+    if(hl)hl.setAttribute('stroke','transparent');
+  }
+  var slots=document.querySelectorAll('.g2-slot');
+  for(var j=0;j<slots.length;j++){slots[j].classList.remove('slot-hover')}
+}
+
+/* ===== G2: FIND CLOSEST SIDE ===== */
+function g2FindClosestSide(sx,sy){
+  var svg=document.getElementById('g2-tri-svg');
+  var pt=svg.createSVGPoint();
+  pt.x=sx;pt.y=sy;
+  var svgPt;
+  try{svgPt=pt.matrixTransform(svg.getScreenCTM().inverse())}catch(e){return null}
+  var sides=['hyp','opp','adj'];
+  var minD=Infinity,closest=null;
+  for(var i=0;i<sides.length;i++){
+    var sk=sides[i];
+    if(G2.sidePlaced[sk])continue;
+    var s=G2.sides[sk];
+    var d=g2DistToSeg(svgPt,{x:s.from[0],y:s.from[1]},{x:s.to[0],y:s.to[1]});
+    if(d<minD){minD=d;closest=sk}
+  }
+  return(minD<65)?closest:null;
+}
+
+function g2DistToSeg(p,a,b){
+  var dx=b.x-a.x,dy=b.y-a.y;
+  var lenSq=dx*dx+dy*dy;
+  if(lenSq===0)return Math.sqrt((p.x-a.x)*(p.x-a.x)+(p.y-a.y)*(p.y-a.y));
+  var t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/lenSq));
+  var px=a.x+t*dx,py=a.y+t*dy;
+  return Math.sqrt((p.x-px)*(p.x-px)+(p.y-py)*(p.y-py));
+}
+
+/* ===== G2: NUMBER PAD ===== */
+function g2NumPad(key){
+  var input=document.getElementById('g2-answer-input');
+  if(input.disabled)return;
+  var val=input.value;
+  if(key==='del'){
+    input.value=val.slice(0,-1);
+  }else if(key==='.'){
+    if(val.indexOf('.')===-1&&val.length<8){input.value=val+'.'}
+  }else{
+    if(val.length<8){input.value=val+key}
+  }
+}
+
+/* ===== G2: CHECK ANSWER ===== */
+function g2CheckAnswer(){
+  var input=document.getElementById('g2-answer-input');
+  var val=parseFloat(input.value.trim());
+  var fb=document.getElementById('g2-answer-feedback');
+
+  if(isNaN(val)||input.value.trim()===''){
+    fb.innerHTML='<span style="color:var(--red)">\u8ACB\u8F38\u5165\u4E00\u500B\u6578\u503C</span>';
+    return;
+  }
+
+  var isCorrect=(val===G2.correctAnswerInt)||(Math.abs(val-G2.correctAnswer3sf)<0.001);
+
+  if(isCorrect){
+    G2.answerTotal++;
+    var perfect=!G2.answerErrors;
+    G2.answerResults.push(perfect);
+    if(perfect)G2.answerScore++;
+    g2UpdateTopbar();
+
+    if(G2.q.type==='findAngle'){
+      fb.innerHTML='<span style="color:var(--green)">\u2713 \u6B63\u78BA\uFF01\u03B8 = '+val+'\u00B0</span>';
+    }else{
+      fb.innerHTML='<span style="color:var(--green)">\u2713 \u6B63\u78BA\uFF01'+G2.q.unknownVar+' = '+val+'</span>';
+    }
+    input.disabled=true;
+    document.getElementById('g2-submit-btn').disabled=true;
+    document.getElementById('g2-numpad').classList.add('disabled');
+
+    if(perfect){
+      G2.streak++;
+      if(G2.streak>=3)spawnConfetti();
+    }else{
+      G2.streak=0;
+    }
+    g2UpdateTopbar();
+    showToast('\u7B54\u6848\u6B63\u78BA\uFF01','success');
+
+    var btn=document.getElementById('g2-next-btn');
+    btn.style.display='block';
+    btn.textContent=(G2.qNum>=G2_TOTAL)?'\u67E5\u770B\u6210\u7E3E \u2192':'\u4E0B\u4E00\u984C \u2192';
+    g2UpdateProgressDots();
+  }else{
+    G2.answerErrors=true;
+    G2.streak=0;
+    g2UpdateTopbar();
+    fb.innerHTML='<span style="color:var(--red)">\u2717 \u4E0D\u6B63\u78BA\uFF0C\u518D\u8A66\u4E00\u6B21\uFF01</span>';
+    input.value='';
+    input.focus();
+  }
+}
+
+/* Enter key for answer input */
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&document.getElementById('game2').classList.contains('active')&&G2.phase==='answer'){
+    g2CheckAnswer();
+  }
+});
+
+/* ===== G2: RESULTS ===== */
+function g2ShowResults(){
+  CURRENT_GAME=2;
+  var totalScore=G2.formulaScore+G2.answerScore;
+  var totalMax=G2_TOTAL*2;
+  var pct=totalScore/totalMax;
+  var emoji,title,msg;
+  if(pct===1){emoji='\uD83C\uDFC6';title='\u6EFF\u5206\uFF01\u592A\u53B2\u5BB3\u4E86\uFF01';msg='\u4F60\u5B8C\u7F8E\u5730\u5B8C\u6210\u4E86\u6240\u6709\u984C\u76EE\uFF0C\u6C92\u6709\u4EFB\u4F55\u932F\u8AA4\uFF01'}
+  else if(pct>=0.83){emoji='\uD83C\uDF89';title='\u975E\u5E38\u51FA\u8272\uFF01';msg='\u4F60\u5C0D\u4E09\u89D2\u6BD4\u6709\u5F88\u597D\u7684\u638C\u63E1\uFF01'}
+  else if(pct>=0.5){emoji='\uD83D\uDC4D';title='\u505A\u5F97\u4E0D\u932F\uFF01';msg='\u7E7C\u7E8C\u7DF4\u7FD2\uFF0C\u4F60\u6703\u8D8A\u4F86\u8D8A\u597D\uFF01'}
+  else{emoji='\uD83D\uDCAA';title='\u7E7C\u7E8C\u52AA\u529B\uFF01';msg='\u591A\u7DF4\u7FD2\u5E7E\u6B21\uFF0C\u4E00\u5B9A\u53EF\u4EE5\u638C\u63E1\uFF01'}
+  showResultsCommon(emoji,title,msg,G2.formulaScore,G2_TOTAL,G2.answerScore,G2_TOTAL,'\u7B97\u5F0F','\u7B54\u6848',submitToGoogleForm2);
+}
+
+/* ===== GOOGLE FORM EXPORT (Game 2) ===== */
+function submitToGoogleForm2(){
+  var el=document.getElementById('submit-status');
+  if(!GOOGLE_FORM_URL_2){el.innerHTML='';return}
+  el.className='submit-status sending';
+  el.innerHTML='<i class="fas fa-spinner fa-spin"></i> \u6B63\u5728\u63D0\u4EA4\u6210\u7E3E\u2026';
+
+  var formData=new URLSearchParams();
+  formData.append(ENTRY2_REGNO,  STUDENT.reg_no);
+  formData.append(ENTRY2_CLASS,  STUDENT.class_name);
+  formData.append(ENTRY2_CLASSNO,STUDENT.class_no);
+  formData.append(ENTRY2_NAME,   STUDENT.student_name);
+  formData.append(ENTRY2_FORMULA,G2.formulaScore+'/'+G2_TOTAL);
+  formData.append(ENTRY2_ANSWER, G2.answerScore+'/'+G2_TOTAL);
+
+  fetch(GOOGLE_FORM_URL_2,{
+    method:'POST',mode:'no-cors',
     headers:{'Content-Type':'application/x-www-form-urlencoded'},
     body:formData.toString()
   }).then(function(){
