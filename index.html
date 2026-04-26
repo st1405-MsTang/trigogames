@@ -283,9 +283,41 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
   /* Game 2 landscape */
   #game2 .game-body{overflow:hidden}
   #game2 .game-right{width:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  /* Game 3 landscape */
+  #game3 .game-body{overflow:hidden}
+  #game3 .game-right{width:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .g2-formula-card{margin-bottom:6px;padding:12px}
   .g2-answer-card{margin-bottom:6px;padding:12px}
 }
+
+/* ===== GAME 3 STYLES ===== */
+#game3 .game-body{overflow-y:auto;-webkit-overflow-scrolling:touch}
+.g3-given-box{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:14px;margin-bottom:8px;box-shadow:var(--shadow);text-align:center;animation:slideUp .3s ease}
+.g3-given-label{font-size:.85rem;color:var(--text2);font-weight:600;margin-bottom:8px}
+.g3-given-formula{font-family:'Source Code Pro',monospace;font-size:1.3rem;font-weight:700;color:var(--text);display:flex;align-items:center;justify-content:center;gap:6px}
+.g3-work-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--border);padding:14px;margin-bottom:8px;box-shadow:var(--shadow);animation:slideUp .3s ease}
+.g3-work-label{text-align:center;font-size:.85rem;color:var(--text2);font-weight:600;margin-bottom:8px}
+.g3-side-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px}
+.g3-side-row .g3-side-var{font-family:'Source Code Pro',monospace;font-size:1.1rem;font-weight:700;color:var(--text)}
+.g3-side-row .g3-side-eq{font-family:'Source Code Pro',monospace;font-size:1.1rem;color:var(--text)}
+.g3-done-item{display:flex;align-items:center;justify-content:center;gap:6px;padding:4px 0;font-family:'Source Code Pro',monospace;font-size:.95rem;font-weight:700;color:var(--green)}
+.g3-ratio-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0;font-family:'Source Code Pro',monospace;font-size:1.1rem;font-weight:700}
+.g3-rname{color:var(--text);min-width:50px;text-align:right}
+.g3-req{color:var(--text)}
+.g3-frac{display:inline-flex;flex-direction:column;align-items:center;gap:0}
+.g3-frac-line{width:100%;height:3px;background:var(--text);border-radius:2px;margin:2px 0}
+.g3-slot{min-width:44px;height:36px;display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:0 10px;transition:all .2s;font-family:'Source Code Pro',monospace;font-weight:700;font-size:1.1rem}
+.g3-slot-empty{border:2px dashed var(--muted);background:var(--bg2);color:var(--muted)}
+.g3-slot-filled{border:2px solid var(--green);background:var(--green-bg);color:var(--green);animation:snapIn .25s ease}
+.g3-slot.slot-hover{border-color:var(--blue)!important;background:var(--blue-light)!important;transform:scale(1.06)}
+.g3-frac-done{display:inline-flex;flex-direction:column;align-items:center;gap:0;margin-left:4px}
+.g3-frac-done-num,.g3-frac-done-den{font-size:.95rem;line-height:1.2;padding:1px 6px}
+.g3-frac-done-line{width:100%;height:2px;background:var(--green);border-radius:1px}
+.g3-frac-show{display:inline-flex;flex-direction:column;align-items:center;gap:0}
+.g3-frac-show-num,.g3-frac-show-den{font-size:1.2rem;line-height:1.3;padding:2px 8px}
+.g3-frac-show-line{width:100%;height:3px;background:var(--text);border-radius:2px;margin:2px 0}
+.g3-ratio-chips{display:flex;justify-content:center;gap:8px;padding:8px 4px;flex-wrap:wrap;margin-top:8px}
+.g3-work-feedback{text-align:center;margin-top:8px;font-weight:600;font-size:.92rem;min-height:24px}
 
 /* ===== PROGRESS DOTS ===== */
 .progress-wrap{display:flex;align-items:center;gap:6px;padding:5px 14px;justify-content:center;flex-shrink:0}
@@ -348,11 +380,11 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
       <div class="card-desc">利用三角比建立算式，然後求出直角三角形的未知邊長。<br>拖拉操作，逐步建立算式並計算答案</div>
       <div class="card-arrow"><i class="fas fa-chevron-right"></i></div>
     </div>
-    <div class="game-card card-c3 disabled">
+    <div class="game-card card-c3" onclick="showStudentForm(3)">
       <div class="card-icon"><i class="fas fa-ruler-combined"></i></div>
-      <div class="card-title">遊戲三</div>
-      <div class="card-desc">即將推出，敬請期待</div>
-      <div class="coming-soon">即將推出</div>
+      <div class="card-title">畢氏定理與三角比</div>
+      <div class="card-desc">利用畢氏定理求未知邊，然後填寫三角比算式。<br>包含拖拉操作和數字輸入</div>
+      <div class="card-arrow"><i class="fas fa-chevron-right"></i></div>
     </div>
   </div>
 </div>
@@ -514,6 +546,59 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
   </div>
 </div>
 
+<!-- ====== GAME 3 ====== -->
+<div id="game3" class="page game-page">
+  <div class="game-topbar">
+    <button class="btn-back" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+    <div class="game-title">畢氏定理與三角比</div>
+    <div class="qnum-badge" id="g3-qnum">第 1/6 題</div>
+    <div class="streak-badge" id="g3-streak"><i class="fas fa-fire"></i> <span>0</span></div>
+    <div class="score-badge" id="g3-score-total"><i class="fas fa-star"></i> <span>0/0</span></div>
+  </div>
+  <div class="progress-wrap" id="g3-progress-dots"></div>
+  <div class="game-body">
+    <div class="game-layout">
+      <div class="game-left">
+        <div class="instruction-card" id="g3-instruction">
+          <div class="g2-steps" id="g3-steps"></div>
+        </div>
+        <div class="tri-container" id="g3-tri-wrap" style="position:relative">
+          <svg id="g3-tri-svg" viewBox="0 0 420 380"></svg>
+        </div>
+        <div class="drag-chip-tray" id="g3-chip-tray" style="display:none"></div>
+      </div>
+      <div class="game-right" id="g3-game-right">
+        <div class="g3-given-box" id="g3-given-box" style="display:none">
+          <div class="g3-given-label">已知三角比</div>
+          <div class="g3-given-formula" id="g3-given-formula"></div>
+        </div>
+        <div class="g3-work-card" id="g3-work-card" style="display:none">
+          <div class="g3-work-label" id="g3-work-label"></div>
+          <div id="g3-work-content"></div>
+          <div class="g2-numpad" id="g3-numpad">
+            <button class="g2-numpad-btn" onclick="g3NumPad('7')">7</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('8')">8</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('9')">9</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('4')">4</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('5')">5</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('6')">6</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('1')">1</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('2')">2</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('3')">3</button>
+            <button class="g2-numpad-btn np-dot" onclick="g3NumPad('.')">.</button>
+            <button class="g2-numpad-btn" onclick="g3NumPad('0')">0</button>
+            <button class="g2-numpad-btn np-del" onclick="g3NumPad('del')"><i class="fas fa-backspace"></i></button>
+            <button class="g2-numpad-btn np-confirm" id="g3-confirm-btn" onclick="g3Confirm()">確認</button>
+          </div>
+          <div class="g3-work-feedback" id="g3-work-feedback"></div>
+        </div>
+        <div class="feedback-bar" id="g3-feedback"></div>
+        <button class="btn-next" id="g3-next-btn" onclick="g3NextQuestion()">下一題 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ====== RESULTS OVERLAY ====== -->
 <div class="results-overlay" id="results-overlay">
   <div class="results-card">
@@ -531,7 +616,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
           <div class="ring-text" id="ring-text">0/6</div>
         </div>
       </div>
-      <div class="results-score-ring">
+      <div class="results-score-ring" id="ring-wrap-2">
         <div class="ring-label" id="ring-label-2">三角比</div>
         <div class="ring-wrap">
           <svg class="ring-svg" viewBox="0 0 120 120">
@@ -581,13 +666,23 @@ var ENTRY_RATIO   = 'entry.1304568701';
    新增 6 個欄位（註冊編號、班別、班號、姓名、算式得分、答案得分），
    替換下方的 URL 和 entry ID。
    ============================================= */
-var GOOGLE_FORM_URL_2 = '';
-var ENTRY2_REGNO   = 'entry.XXXXXXXXX';
-var ENTRY2_CLASS   = 'entry.XXXXXXXXX';
-var ENTRY2_CLASSNO = 'entry.XXXXXXXXX';
-var ENTRY2_NAME    = 'entry.XXXXXXXXX';
-var ENTRY2_FORMULA = 'entry.XXXXXXXXX';
-var ENTRY2_ANSWER  = 'entry.XXXXXXXXX';
+var GOOGLE_FORM_URL_2 = 'https://docs.google.com/forms/d/e/1FAIpQLSeqrj00bNfR7gwI-kwCHVDTZdHXtTYrR75Jy-7XbAfv9HEAKg/formResponse';
+var ENTRY2_REGNO   = 'entry.1852370334';
+var ENTRY2_CLASS   = 'entry.833965759';
+var ENTRY2_CLASSNO = 'entry.79507156';
+var ENTRY2_NAME    = 'entry.302501095';
+var ENTRY2_FORMULA = 'entry.356594970';
+var ENTRY2_ANSWER  = 'entry.1304568701';
+
+/* =============================================
+   Google Form 自動匯出設定 — 遊戲三
+   ============================================= */
+var GOOGLE_FORM_URL_3 = 'https://docs.google.com/forms/d/e/1FAIpQLSc5NvbDBW3MWJ22ttqjnix9bRflZTef-l0hqHgQI4TYq_rfhw/formResponse';
+var ENTRY3_REGNO   = 'entry.1852370334';
+var ENTRY3_CLASS   = 'entry.833965759';
+var ENTRY3_CLASSNO = 'entry.79507156';
+var ENTRY3_NAME    = 'entry.302501095';
+var ENTRY3_SCORE   = 'entry.356594970';
 
 /* ===== STUDENT INFO ===== */
 var STUDENT = {reg_no:'', class_name:'', class_no:'', student_name:''};
@@ -646,7 +741,8 @@ function submitStudentForm(){
   STUDENT.class_no=clsNo;
   STUDENT.student_name=sname;
   document.getElementById('form-error').textContent='';
-  if(CURRENT_GAME===2){startGame2();}
+  if(CURRENT_GAME===3){startGame3();}
+  else if(CURRENT_GAME===2){startGame2();}
   else{startGame();}
 }
 
@@ -668,7 +764,7 @@ function startGame(){
   showPage('game1');
   newQuestion();
 }
-function replayCurrentGame(){hideResults();if(CURRENT_GAME===2){startGame2();}else{startGame();}}
+function replayCurrentGame(){hideResults();if(CURRENT_GAME===3){startGame3();}else if(CURRENT_GAME===2){startGame2();}else{startGame();}}
 function goHomeFromResults(){hideResults();goHome()}
 function hideResults(){document.getElementById('results-overlay').classList.remove('active')}
 function buildProgressDots(){
@@ -1019,7 +1115,6 @@ function showResultsCommon(emoji,title,msg,s1,t1,s2,t2,label1,label2,submitFn){
   document.getElementById('results-title').textContent=title;
   document.getElementById('results-msg').textContent=msg;
   document.getElementById('ring-label-1').textContent=label1;
-  document.getElementById('ring-label-2').textContent=label2;
   /* Show student info */
   var infoEl=document.getElementById('results-student-info');
   infoEl.innerHTML=''
@@ -1027,10 +1122,21 @@ function showResultsCommon(emoji,title,msg,s1,t1,s2,t2,label1,label2,submitFn){
     +'<span class="student-tag"><i class="fas fa-school"></i> '+escHtml(STUDENT.class_name)+'</span>'
     +'<span class="student-tag"><i class="fas fa-hashtag"></i> '+escHtml(STUDENT.class_no)+'</span>'
     +'<span class="student-tag"><i class="fas fa-user"></i> '+escHtml(STUDENT.student_name)+'</span>';
-  animateRing('ring-fill','ring-text',s1,t1);
-  animateRing('ring-fill-2','ring-text-2',s2,t2);
+  var ring2wrap=document.getElementById('ring-wrap-2');
+  var pct;
+  if(t2===null){
+    /* Single-ring mode */
+    ring2wrap.style.display='none';
+    animateRing('ring-fill','ring-text',s1,t1);
+    pct=s1/t1;
+  }else{
+    ring2wrap.style.display='';
+    document.getElementById('ring-label-2').textContent=label2;
+    animateRing('ring-fill','ring-text',s1,t1);
+    animateRing('ring-fill-2','ring-text-2',s2,t2);
+    pct=(s1+s2)/(t1+t2);
+  }
   document.getElementById('results-overlay').classList.add('active');
-  var pct=(s1+s2)/(t1+t2);
   if(pct>=0.83){spawnConfetti()}
   submitFn();
 }
@@ -1069,8 +1175,8 @@ function submitToGoogleForm(){
   formData.append(ENTRY_CLASS,  STUDENT.class_name);
   formData.append(ENTRY_CLASSNO,STUDENT.class_no);
   formData.append(ENTRY_NAME,   STUDENT.student_name);
-  formData.append(ENTRY_SIDE,   G.score+'/'+TOTAL_QUESTIONS);
-  formData.append(ENTRY_RATIO,  G.ratioScore+'/'+TOTAL_QUESTIONS);
+  formData.append(ENTRY_SIDE,   G.score);
+  formData.append(ENTRY_RATIO,  G.ratioScore);
 
   fetch(GOOGLE_FORM_URL,{
     method:'POST',
@@ -1863,10 +1969,719 @@ function submitToGoogleForm2(){
   formData.append(ENTRY2_CLASS,  STUDENT.class_name);
   formData.append(ENTRY2_CLASSNO,STUDENT.class_no);
   formData.append(ENTRY2_NAME,   STUDENT.student_name);
-  formData.append(ENTRY2_FORMULA,G2.formulaScore+'/'+G2_TOTAL);
-  formData.append(ENTRY2_ANSWER, G2.answerScore+'/'+G2_TOTAL);
+  formData.append(ENTRY2_FORMULA,G2.formulaScore);
+  formData.append(ENTRY2_ANSWER, G2.answerScore);
 
   fetch(GOOGLE_FORM_URL_2,{
+    method:'POST',mode:'no-cors',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body:formData.toString()
+  }).then(function(){
+    el.className='submit-status';
+    el.innerHTML='<i class="fas fa-check-circle"></i> \u6210\u7E3E\u5DF2\u50B3\u9001';
+  }).catch(function(){
+    el.className='submit-status send-error';
+    el.innerHTML='<i class="fas fa-exclamation-circle"></i> \u50B3\u9001\u5931\u6557\uFF0C\u8ACB\u544A\u77E5\u8001\u5E2B';
+  });
+}
+
+/* =================================================================
+   GAME 3: 畢氏定理與三角比
+   ================================================================= */
+var G3_TOTAL=6;
+
+/* Type A: Given 2 sides, find 3rd via Pythagorean theorem, then fill sin/cos/tan */
+var G3_BANK_A=[
+  {opp:6,adj:8,hyp:10,given1:'opp',given2:'hyp',miss:'adj'},
+  {opp:5,adj:12,hyp:13,given1:'adj',given2:'hyp',miss:'opp'},
+  {opp:15,adj:20,hyp:25,given1:'opp',given2:'adj',miss:'hyp'},
+  {opp:8,adj:15,hyp:17,given1:'opp',given2:'hyp',miss:'adj'},
+  {opp:7,adj:24,hyp:25,given1:'adj',given2:'hyp',miss:'opp'},
+  {opp:9,adj:12,hyp:15,given1:'opp',given2:'adj',miss:'hyp'}
+];
+
+/* Type B: Given a trig ratio, drag values to sides, find missing side, fill remaining ratios */
+var G3_BANK_B=[
+  {ratio:'sin',num:3,den:5,opp:3,adj:4,hyp:5,miss:'adj'},
+  {ratio:'cos',num:12,den:13,opp:5,adj:12,hyp:13,miss:'opp'},
+  {ratio:'tan',num:8,den:15,opp:8,adj:15,hyp:17,miss:'hyp'},
+  {ratio:'sin',num:7,den:25,opp:7,adj:24,hyp:25,miss:'adj'},
+  {ratio:'cos',num:20,den:25,opp:15,adj:20,hyp:25,miss:'opp'},
+  {ratio:'tan',num:9,den:12,opp:9,adj:12,hyp:15,miss:'hyp'}
+];
+
+var G3_TRIS=G2_TRIS;
+var G3_RATIO_SIDES={sin:{num:'opp',den:'hyp'},cos:{num:'adj',den:'hyp'},tan:{num:'opp',den:'adj'}};
+
+var G3={};
+
+/* ===== G3: START ===== */
+function startGame3(){
+  CURRENT_GAME=3;
+  G3={
+    qNum:0,questions:[],streak:0,
+    score:0,maxScore:0,qResults:[],
+    qErrors:false,sideHadError:false,curRatioHadError:false,
+    q:null,triIdx:0,thetaIdx:1,sides:null,centroid:null,
+    phase:'',currentRatioIdx:0,ratiosToFill:[],
+    missVal:0,dragPlaced:{},numPlaced:false,denPlaced:false
+  };
+  var aIdx=[];
+  for(var i=0;i<G3_BANK_A.length;i++)aIdx.push(i);
+  shuffleArr(aIdx);
+  for(var sa=0;sa<3;sa++){
+    var qa=JSON.parse(JSON.stringify(G3_BANK_A[aIdx[sa]]));
+    qa.type='A';
+    G3.questions.push(qa);
+  }
+  var bIdx=[];
+  for(var jj=0;jj<G3_BANK_B.length;jj++)bIdx.push(jj);
+  shuffleArr(bIdx);
+  for(var sb=0;sb<3;sb++){
+    var qb=JSON.parse(JSON.stringify(G3_BANK_B[bIdx[sb]]));
+    qb.type='B';
+    G3.questions.push(qb);
+  }
+  shuffleArr(G3.questions);
+  /* Calculate max score: 1 per side + 1 per ratio */
+  var ms=0;
+  for(var mi=0;mi<G3.questions.length;mi++){
+    ms+=1;/* side */
+    ms+=(G3.questions[mi].type==='A')?3:2;/* ratios */
+  }
+  G3.maxScore=ms;
+  g3UpdateTopbar();
+  g3BuildProgressDots();
+  showPage('game3');
+  g3NextQuestion();
+}
+
+/* ===== G3: TOPBAR ===== */
+function g3UpdateTopbar(){
+  document.getElementById('g3-qnum').textContent='\u7B2C '+G3.qNum+'/'+G3_TOTAL+' \u984C';
+  document.getElementById('g3-streak').querySelector('span').textContent=G3.streak;
+  document.getElementById('g3-score-total').querySelector('span').textContent=G3.score+'/'+G3.maxScore;
+}
+
+/* ===== G3: PROGRESS DOTS ===== */
+function g3BuildProgressDots(){
+  var wrap=document.getElementById('g3-progress-dots');
+  var h='';
+  for(var i=0;i<G3_TOTAL;i++){h+='<div class="progress-dot" id="g3-pdot-'+i+'"></div>'}
+  wrap.innerHTML=h;
+}
+function g3UpdateProgressDots(){
+  for(var i=0;i<G3_TOTAL;i++){
+    var dot=document.getElementById('g3-pdot-'+i);
+    if(!dot)continue;
+    dot.className='progress-dot';
+    if(i<G3.qResults.length){
+      var ok=G3.qResults[i];
+      dot.classList.add(ok?'done-ok':'done-err');
+    }else if(i===G3.qNum-1){
+      dot.classList.add('current');
+    }
+  }
+}
+
+/* ===== G3: NEXT QUESTION ===== */
+function g3NextQuestion(){
+  if(G3.qNum>=G3_TOTAL){g3ShowResults();return}
+  var q=G3.questions[G3.qNum];
+  G3.q=q;
+  G3.qNum++;
+  G3.qErrors=false;
+  G3.sideHadError=false;
+  G3.curRatioHadError=false;
+  G3.dragPlaced={};
+  G3.numPlaced=false;
+  G3.denPlaced=false;
+  G3.currentRatioIdx=0;
+
+  G3.triIdx=rand(0,G3_TRIS.length-1);
+  G3.thetaIdx=Math.random()>0.5?1:2;
+  G3.missVal=q[q.miss];
+
+  if(q.type==='A'){
+    G3.ratiosToFill=['sin','cos','tan'];
+  }else{
+    G3.ratiosToFill=['sin','cos','tan'].filter(function(r){return r!==q.ratio});
+  }
+
+  g3DrawTriangle();
+  g3UpdateTopbar();
+  g3UpdateProgressDots();
+
+  document.getElementById('g3-given-box').style.display='none';
+  document.getElementById('g3-work-card').style.display='none';
+  document.getElementById('g3-chip-tray').style.display='none';
+  document.getElementById('g3-next-btn').style.display='none';
+  document.getElementById('g3-feedback').className='feedback-bar';
+  document.getElementById('g3-feedback').textContent='';
+
+  if(q.type==='A'){
+    g3SetPhase('findSide');
+  }else{
+    g3SetPhase('drag');
+  }
+}
+
+/* ===== G3: DRAW TRIANGLE ===== */
+function g3DrawTriangle(){
+  var tri=G3_TRIS[G3.triIdx];
+  var R=tri.v[0];
+  var tIdx=G3.thetaIdx;
+  var oIdx=(tIdx===1)?2:1;
+  var T=tri.v[tIdx];
+  var O=tri.v[oIdx];
+  var vA=tri.v[1];
+  var vB=tri.v[2];
+
+  var svg=document.getElementById('g3-tri-svg');
+  var h='';
+  h+='<polygon points="'+R[0]+','+R[1]+' '+vA[0]+','+vA[1]+' '+vB[0]+','+vB[1]+'" fill="var(--tri-fill)" stroke="none"/>';
+  h+='<line x1="'+R[0]+'" y1="'+R[1]+'" x2="'+vA[0]+'" y2="'+vA[1]+'" stroke="var(--tri-stroke)" stroke-width="3"/>';
+  h+='<line x1="'+R[0]+'" y1="'+R[1]+'" x2="'+vB[0]+'" y2="'+vB[1]+'" stroke="var(--tri-stroke)" stroke-width="3"/>';
+  h+='<line x1="'+vA[0]+'" y1="'+vA[1]+'" x2="'+vB[0]+'" y2="'+vB[1]+'" stroke="var(--tri-stroke)" stroke-width="3"/>';
+  h+=drawRightAngle(R,vA,vB);
+
+  /* Theta arc */
+  var r2=30;
+  var angA=Math.atan2(R[1]-T[1],R[0]-T[0]);
+  var angB=Math.atan2(O[1]-T[1],O[0]-T[0]);
+  var adiff=angB-angA;
+  while(adiff>Math.PI)adiff-=2*Math.PI;
+  while(adiff<-Math.PI)adiff+=2*Math.PI;
+  var nPts=20;
+  var arcPts=T[0].toFixed(1)+','+T[1].toFixed(1);
+  for(var i=0;i<=nPts;i++){
+    var t2=i/nPts;
+    var aa=angA+t2*adiff;
+    arcPts+=' '+(T[0]+r2*Math.cos(aa)).toFixed(1)+','+(T[1]+r2*Math.sin(aa)).toFixed(1);
+  }
+  h+='<polygon points="'+arcPts+'" fill="rgba(220,38,38,.12)" stroke="#DC2626" stroke-width="1.5"/>';
+  var midAng=angA+adiff/2;
+  var lr2=r2+20;
+  var alx=(T[0]+lr2*Math.cos(midAng)).toFixed(1);
+  var aly=(T[1]+lr2*Math.sin(midAng)+5).toFixed(1);
+  h+='<text x="'+alx+'" y="'+aly+'" font-size="18" fill="#DC2626" text-anchor="middle" font-style="italic" font-family="serif">\u03B8</text>';
+
+  /* Side definitions */
+  G3.sides={hyp:{from:T,to:O},opp:null,adj:{from:R,to:T}};
+  if(tIdx===1){G3.sides.opp={from:R,to:O}}else{G3.sides.opp={from:R,to:vA}}
+  G3.centroid=[(R[0]+T[0]+O[0])/3,(R[1]+T[1]+O[1])/3];
+
+  /* Side value labels */
+  var q=G3.q;
+  var sideKeys=['hyp','opp','adj'];
+  for(var si=0;si<sideKeys.length;si++){
+    var sk=sideKeys[si];
+    var s=G3.sides[sk];
+    var mx=(s.from[0]+s.to[0])/2;
+    var my=(s.from[1]+s.to[1])/2;
+    var dx=mx-G3.centroid[0],dy=my-G3.centroid[1];
+    var len=Math.sqrt(dx*dx+dy*dy);
+    if(len>0){mx+=dx/len*28;my+=dy/len*28}
+
+    var label='';
+    if(q.type==='A'){
+      if(sk===q.given1||sk===q.given2)label=String(q[sk]);
+      else label='?';
+    }else{
+      label='?';
+    }
+    h+='<text class="g3-val-label" data-side="'+sk+'" x="'+mx.toFixed(1)+'" y="'+(my+6).toFixed(1)+'" font-size="22" fill="var(--text)" text-anchor="middle" font-weight="700" font-family=\'Source Code Pro\',monospace>'+label+'</text>';
+  }
+
+  /* Highlight lines for drag feedback */
+  for(var hi=0;hi<sideKeys.length;hi++){
+    var hk=sideKeys[hi];
+    var hs=G3.sides[hk];
+    h+='<line class="g3-hl" id="g3-hl-'+hk+'" x1="'+hs.from[0]+'" y1="'+hs.from[1]+'" x2="'+hs.to[0]+'" y2="'+hs.to[1]+'" stroke="transparent" stroke-width="10" pointer-events="none" stroke-linecap="round"/>';
+  }
+
+  svg.innerHTML=h;
+}
+
+/* ===== G3: UPDATE TRIANGLE LABEL ===== */
+function g3UpdateTriLabel(sideKey,val,color){
+  var labels=document.querySelectorAll('#g3-tri-svg .g3-val-label');
+  for(var i=0;i<labels.length;i++){
+    if(labels[i].getAttribute('data-side')===sideKey){
+      labels[i].textContent=String(val);
+      if(color)labels[i].setAttribute('fill',color);
+    }
+  }
+}
+
+/* ===== G3: PHASE MANAGEMENT ===== */
+function g3SetPhase(phase){
+  G3.phase=phase;
+  g3UpdateSteps();
+
+  var givenBox=document.getElementById('g3-given-box');
+  var workCard=document.getElementById('g3-work-card');
+  var chipTray=document.getElementById('g3-chip-tray');
+  var numpad=document.getElementById('g3-numpad');
+  var fb=document.getElementById('g3-work-feedback');
+  fb.innerHTML='';
+
+  if(phase==='drag'){
+    givenBox.style.display='block';
+    workCard.style.display='none';
+    chipTray.style.display='flex';
+    numpad.style.display='';
+    numpad.classList.remove('disabled');
+    var q=G3.q;
+    document.getElementById('g3-given-formula').innerHTML=q.ratio+' \u03B8 = <div class="g3-frac-show"><div class="g3-frac-show-num">'+q.num+'</div><div class="g3-frac-show-line"></div><div class="g3-frac-show-den">'+q.den+'</div></div>';
+    g3InitDragChips();
+  }else if(phase==='findSide'){
+    chipTray.style.display='none';
+    if(G3.q.type==='A')givenBox.style.display='none';
+    workCard.style.display='block';
+    workCard.style.animation='none';
+    void workCard.offsetHeight;
+    workCard.style.animation='slideUp .3s ease';
+    numpad.style.display='';
+    numpad.classList.remove('disabled');
+    document.getElementById('g3-work-label').textContent='\u5229\u7528\u7562\u6C0F\u5B9A\u7406\u6C42\u908A';
+    g3RenderWorkContent();
+  }else if(phase==='fillRatio'){
+    chipTray.style.display='none';
+    workCard.style.display='block';
+    numpad.style.display='none';
+    document.getElementById('g3-work-label').textContent='\u62D6\u62C9\u6578\u5B57\u5230\u4E09\u89D2\u6BD4\u7B97\u5F0F\u5167';
+    G3.numPlaced=false;
+    G3.denPlaced=false;
+    g3RenderWorkContent();
+    g3InitRatioChips();
+  }else if(phase==='done'){
+    numpad.style.display='none';
+    chipTray.style.display='none';
+  }
+}
+
+/* ===== G3: STEP INDICATOR ===== */
+function g3UpdateSteps(){
+  var q=G3.q;
+  var stepsEl=document.getElementById('g3-steps');
+  var circled=['\u2460','\u2461','\u2462','\u2463'];
+  var steps=[];
+
+  if(q.type==='A'){
+    steps=[
+      {label:circled[0]+' \u6C42\u908A'},
+      {label:circled[1]+' sin \u03B8'},
+      {label:circled[2]+' cos \u03B8'},
+      {label:circled[3]+' tan \u03B8'}
+    ];
+  }else{
+    steps=[
+      {label:circled[0]+' \u62D6\u62C9'},
+      {label:circled[1]+' \u6C42\u908A'}
+    ];
+    for(var ri=0;ri<G3.ratiosToFill.length;ri++){
+      steps.push({label:circled[2+ri]+' '+G3.ratiosToFill[ri]+' \u03B8'});
+    }
+  }
+
+  var currentIdx=0;
+  if(G3.phase==='drag')currentIdx=0;
+  else if(G3.phase==='findSide')currentIdx=(q.type==='A')?0:1;
+  else if(G3.phase==='fillRatio')currentIdx=(q.type==='A')?(1+G3.currentRatioIdx):(2+G3.currentRatioIdx);
+  else if(G3.phase==='done')currentIdx=steps.length;
+
+  var html='';
+  for(var j=0;j<steps.length;j++){
+    if(j>0)html+='<span class="g2-step-sep">\u203A</span>';
+    var cls='g2-step';
+    if(j<currentIdx)cls+=' done';
+    else if(j===currentIdx)cls+=' active';
+    html+='<span class="'+cls+'">'+steps[j].label+'</span>';
+  }
+  stepsEl.innerHTML=html;
+}
+
+/* ===== G3: RENDER WORK CONTENT ===== */
+function g3RenderWorkContent(){
+  var el=document.getElementById('g3-work-content');
+  var html='';
+  var q=G3.q;
+
+  if(G3.phase==='findSide'){
+    var missName=G2_SIDE_NAMES[q.miss];
+    html+='<div class="g3-side-row">';
+    html+='<span class="g3-side-var">'+missName+'</span>';
+    html+='<span class="g3-side-eq">=</span>';
+    html+='<input type="text" class="g2-answer-input" id="g3-side-input" placeholder="?" readonly>';
+    html+='</div>';
+  }else if(G3.phase==='fillRatio'||G3.phase==='done'){
+    /* For Type B, show given ratio as pre-done */
+    if(q.type==='B'){
+      var gr=q.ratio;
+      html+='<div class="g3-done-item"><i class="fas fa-check"></i> '+gr+' \u03B8 = <div class="g3-frac-done"><div class="g3-frac-done-num">'+q[G3_RATIO_SIDES[gr].num]+'</div><div class="g3-frac-done-line"></div><div class="g3-frac-done-den">'+q[G3_RATIO_SIDES[gr].den]+'</div></div></div>';
+    }
+    for(var i=0;i<G3.ratiosToFill.length;i++){
+      var r=G3.ratiosToFill[i];
+      if(i<G3.currentRatioIdx){
+        /* Completed */
+        html+='<div class="g3-done-item"><i class="fas fa-check"></i> '+r+' \u03B8 = <div class="g3-frac-done"><div class="g3-frac-done-num">'+q[G3_RATIO_SIDES[r].num]+'</div><div class="g3-frac-done-line"></div><div class="g3-frac-done-den">'+q[G3_RATIO_SIDES[r].den]+'</div></div></div>';
+      }else if(i===G3.currentRatioIdx&&G3.phase!=='done'){
+        /* Active — fraction with drop slots */
+        html+='<div class="g3-ratio-row">';
+        html+='<span class="g3-rname">'+r+' \u03B8</span>';
+        html+='<span class="g3-req">=</span>';
+        html+='<div class="g3-frac">';
+        html+='<div class="g3-slot g3-slot-empty" id="g3-slot-num">?</div>';
+        html+='<div class="g3-frac-line"></div>';
+        html+='<div class="g3-slot g3-slot-empty" id="g3-slot-den">?</div>';
+        html+='</div>';
+        html+='</div>';
+        html+='<div class="g3-ratio-chips" id="g3-ratio-chips"></div>';
+      }else{
+        /* Pending */
+        html+='<div class="g3-ratio-row" style="opacity:.35">';
+        html+='<span class="g3-rname">'+r+' \u03B8</span>';
+        html+='<span class="g3-req">=</span>';
+        html+='<div class="g3-frac">';
+        html+='<div class="g3-slot g3-slot-empty">?</div>';
+        html+='<div class="g3-frac-line" style="background:var(--muted)"></div>';
+        html+='<div class="g3-slot g3-slot-empty">?</div>';
+        html+='</div>';
+        html+='</div>';
+      }
+    }
+  }
+  el.innerHTML=html;
+}
+
+/* ===== G3: INIT RATIO CHIPS (for fillRatio drag) ===== */
+function g3InitRatioChips(){
+  var tray=document.getElementById('g3-ratio-chips');
+  if(!tray)return;
+  tray.innerHTML='';
+  var q=G3.q;
+  var chips=[
+    {val:String(q.opp),label:String(q.opp)},
+    {val:String(q.adj),label:String(q.adj)},
+    {val:String(q.hyp),label:String(q.hyp)}
+  ];
+  shuffleArr(chips);
+  for(var i=0;i<chips.length;i++){
+    var c=document.createElement('div');
+    c.className='drag-chip chip-val';
+    c.setAttribute('data-value',chips[i].val);
+    c.textContent=chips[i].label;
+    tray.appendChild(c);
+    g3MakeDraggable(c);
+  }
+}
+
+/* ===== G3: DRAG CHIPS (Type B) ===== */
+function g3InitDragChips(){
+  var tray=document.getElementById('g3-chip-tray');
+  tray.innerHTML='';
+  var q=G3.q;
+  var chips=[
+    {val:String(q.num),label:String(q.num)},
+    {val:String(q.den),label:String(q.den)}
+  ];
+  shuffleArr(chips);
+  for(var i=0;i<chips.length;i++){
+    var c=document.createElement('div');
+    c.className='drag-chip chip-val';
+    c.setAttribute('data-value',chips[i].val);
+    c.textContent=chips[i].label;
+    tray.appendChild(c);
+    g3MakeDraggable(c);
+  }
+}
+
+function g3MakeDraggable(el){
+  var ghost=null,ox=0,oy=0,dragging=false;
+  function onStart(e){
+    if(el.classList.contains('placed'))return;
+    e.preventDefault();e.stopPropagation();
+    dragging=true;
+    var pos=g2Pos(e);
+    var rect=el.getBoundingClientRect();
+    ox=pos.x-rect.left;oy=pos.y-rect.top;
+    ghost=el.cloneNode(true);
+    ghost.classList.add('drag-ghost');
+    ghost.style.cssText='position:fixed;z-index:10000;pointer-events:none;opacity:0.88;transform:scale(1.08);box-shadow:0 8px 24px rgba(0,0,0,.3);left:'+rect.left+'px;top:'+rect.top+'px;width:'+rect.width+'px;';
+    document.body.appendChild(ghost);
+    el.style.opacity='0.3';
+    document.addEventListener('touchmove',onMove,{passive:false});
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('touchend',onEnd);
+    document.addEventListener('mouseup',onEnd);
+    document.addEventListener('touchcancel',onEnd);
+  }
+  function onMove(e){
+    if(!dragging)return;e.preventDefault();
+    var pos=g2Pos(e);
+    ghost.style.left=(pos.x-ox)+'px';ghost.style.top=(pos.y-oy)+'px';
+    g3HighlightTargets(pos.x,pos.y);
+  }
+  function onEnd(e){
+    if(!dragging)return;dragging=false;
+    document.removeEventListener('touchmove',onMove);
+    document.removeEventListener('mousemove',onMove);
+    document.removeEventListener('touchend',onEnd);
+    document.removeEventListener('mouseup',onEnd);
+    document.removeEventListener('touchcancel',onEnd);
+    var pos=g2EndPos(e);
+    var accepted=g3HandleDrop(el,pos.x,pos.y);
+    if(!accepted)el.style.opacity='1';
+    g3ClearHighlights();
+    if(ghost&&ghost.parentNode)ghost.parentNode.removeChild(ghost);
+    ghost=null;
+  }
+  el.addEventListener('touchstart',onStart,{passive:false});
+  el.addEventListener('mousedown',onStart);
+}
+
+/* ===== G3: DROP HANDLING ===== */
+function g3HandleDrop(chipEl,x,y){
+  var chipVal=chipEl.getAttribute('data-value');
+
+  if(G3.phase==='drag'){
+    var closest=g3FindClosestSide(x,y);
+    if(!closest)return false;
+    var q=G3.q;
+    var numSide=G3_RATIO_SIDES[q.ratio].num;
+    var denSide=G3_RATIO_SIDES[q.ratio].den;
+
+    var isCorrect=false;
+    if(chipVal===String(q.num)&&closest===numSide)isCorrect=true;
+    if(chipVal===String(q.den)&&closest===denSide)isCorrect=true;
+
+    if(isCorrect){
+      chipEl.classList.add('placed');
+      G3.dragPlaced[closest]=chipVal;
+      g3UpdateTriLabel(closest,chipVal,'var(--blue)');
+      showToast('\u2713 \u6B63\u78BA\uFF01','success');
+      var count=0;for(var k in G3.dragPlaced){if(G3.dragPlaced.hasOwnProperty(k))count++}
+      if(count===2){
+        setTimeout(function(){g3SetPhase('findSide')},500);
+      }
+      return true;
+    }else{
+      G3.sideHadError=true;
+      G3.qErrors=true;
+      g3FlashSide(closest);
+      showToast('\u4F4D\u7F6E\u4E0D\u6B63\u78BA\uFF01','error');
+      return false;
+    }
+  }else if(G3.phase==='fillRatio'){
+    var numSlot=document.getElementById('g3-slot-num');
+    var denSlot=document.getElementById('g3-slot-den');
+    if(!G3.numPlaced&&numSlot&&g2IsOver(x,y,numSlot))return g3OnRatioSlotDrop(chipEl,chipVal,'num');
+    if(!G3.denPlaced&&denSlot&&g2IsOver(x,y,denSlot))return g3OnRatioSlotDrop(chipEl,chipVal,'den');
+  }
+  return false;
+}
+
+/* ===== G3: RATIO SLOT DROP ===== */
+function g3OnRatioSlotDrop(chipEl,chipVal,slotType){
+  var activeR=G3.ratiosToFill[G3.currentRatioIdx];
+  var expectedSide=(slotType==='num')?G3_RATIO_SIDES[activeR].num:G3_RATIO_SIDES[activeR].den;
+  var expected=G3.q[expectedSide];
+
+  if(parseInt(chipVal,10)===expected){
+    chipEl.classList.add('placed');
+    var slot=document.getElementById('g3-slot-'+slotType);
+    slot.textContent=chipVal;
+    slot.className='g3-slot g3-slot-filled';
+    if(slotType==='num')G3.numPlaced=true;
+    else G3.denPlaced=true;
+
+    if(G3.numPlaced&&G3.denPlaced){
+      /* This ratio is complete — score it */
+      if(!G3.curRatioHadError)G3.score++;
+      showToast(activeR+' \u03B8 \u6B63\u78BA\uFF01','success');
+      G3.currentRatioIdx++;
+      G3.numPlaced=false;
+      G3.denPlaced=false;
+      G3.curRatioHadError=false;
+      g3UpdateTopbar();
+
+      if(G3.currentRatioIdx>=G3.ratiosToFill.length){
+        /* All ratios done — finish question */
+        G3.qResults.push(!G3.qErrors);
+        if(!G3.qErrors){G3.streak++;if(G3.streak>=3)spawnConfetti()}
+        else{G3.streak=0}
+        g3UpdateTopbar();
+
+        setTimeout(function(){
+          g3RenderWorkContent();
+          G3.phase='done';
+          g3UpdateSteps();
+
+          var btn=document.getElementById('g3-next-btn');
+          btn.style.display='block';
+          btn.textContent=(G3.qNum>=G3_TOTAL)?'\u67E5\u770B\u6210\u7E3E \u2192':'\u4E0B\u4E00\u984C \u2192';
+          g3UpdateProgressDots();
+        },500);
+      }else{
+        setTimeout(function(){
+          document.getElementById('g3-work-feedback').innerHTML='';
+          g3RenderWorkContent();
+          g3InitRatioChips();
+        },500);
+      }
+    }
+    return true;
+  }else{
+    G3.curRatioHadError=true;
+    G3.qErrors=true;
+    showToast('\u4F4D\u7F6E\u4E0D\u6B63\u78BA\uFF01','error');
+    return false;
+  }
+}
+
+function g3FlashSide(sideKey){
+  var hl=document.getElementById('g3-hl-'+sideKey);
+  if(hl){
+    hl.setAttribute('stroke','rgba(220,38,38,0.6)');
+    setTimeout(function(){hl.setAttribute('stroke','transparent')},500);
+  }
+}
+
+/* ===== G3: HIGHLIGHT DURING DRAG ===== */
+function g3HighlightTargets(x,y){
+  if(G3.phase==='drag'){
+    var closest=g3FindClosestSide(x,y);
+    var sides=['hyp','opp','adj'];
+    for(var i=0;i<sides.length;i++){
+      var hl=document.getElementById('g3-hl-'+sides[i]);
+      if(hl)hl.setAttribute('stroke',(sides[i]===closest)?'rgba(37,99,235,0.5)':'transparent');
+    }
+  }else if(G3.phase==='fillRatio'){
+    var numSlot=document.getElementById('g3-slot-num');
+    var denSlot=document.getElementById('g3-slot-den');
+    if(!G3.numPlaced&&numSlot){if(g2IsOver(x,y,numSlot))numSlot.classList.add('slot-hover');else numSlot.classList.remove('slot-hover')}
+    if(!G3.denPlaced&&denSlot){if(g2IsOver(x,y,denSlot))denSlot.classList.add('slot-hover');else denSlot.classList.remove('slot-hover')}
+  }
+}
+
+function g3ClearHighlights(){
+  var sides=['hyp','opp','adj'];
+  for(var i=0;i<sides.length;i++){
+    var hl=document.getElementById('g3-hl-'+sides[i]);
+    if(hl)hl.setAttribute('stroke','transparent');
+  }
+  var slots=document.querySelectorAll('.g3-slot');
+  for(var j=0;j<slots.length;j++){slots[j].classList.remove('slot-hover')}
+}
+
+/* ===== G3: FIND CLOSEST SIDE ===== */
+function g3FindClosestSide(sx,sy){
+  var svg=document.getElementById('g3-tri-svg');
+  var pt=svg.createSVGPoint();
+  pt.x=sx;pt.y=sy;
+  var svgPt;
+  try{svgPt=pt.matrixTransform(svg.getScreenCTM().inverse())}catch(ex){return null}
+  var sides=['hyp','opp','adj'];
+  var minD=Infinity,closest=null;
+  for(var i=0;i<sides.length;i++){
+    var sk=sides[i];
+    if(G3.dragPlaced[sk])continue;
+    var s=G3.sides[sk];
+    var d=g2DistToSeg(svgPt,{x:s.from[0],y:s.from[1]},{x:s.to[0],y:s.to[1]});
+    if(d<minD){minD=d;closest=sk}
+  }
+  return(minD<65)?closest:null;
+}
+
+/* ===== G3: NUMBER PAD ===== */
+function g3NumPad(key){
+  if(G3.phase==='findSide'){
+    var input=document.getElementById('g3-side-input');
+    if(!input||input.disabled)return;
+    var val=input.value;
+    if(key==='del'){input.value=val.slice(0,-1)}
+    else if(key==='.'){if(val.indexOf('.')===-1&&val.length<8)input.value=val+'.'}
+    else{if(val.length<8)input.value=val+key}
+  }
+}
+
+/* ===== G3: CONFIRM ===== */
+function g3Confirm(){
+  if(G3.phase==='findSide')g3CheckSide();
+}
+
+/* ===== G3: CHECK SIDE ===== */
+function g3CheckSide(){
+  var input=document.getElementById('g3-side-input');
+  if(!input)return;
+  var val=parseFloat(input.value.trim());
+  var fb=document.getElementById('g3-work-feedback');
+
+  if(isNaN(val)||input.value.trim()===''){
+    fb.innerHTML='<span style="color:var(--red)">\u8ACB\u8F38\u5165\u4E00\u500B\u6578\u503C</span>';
+    return;
+  }
+
+  if(val===G3.missVal){
+    if(!G3.sideHadError)G3.score++;
+    g3UpdateTopbar();
+
+    var missName=G2_SIDE_NAMES[G3.q.miss];
+    fb.innerHTML='<span style="color:var(--green)">\u2713 \u6B63\u78BA\uFF01'+missName+' = '+val+'</span>';
+    input.disabled=true;
+    document.getElementById('g3-numpad').classList.add('disabled');
+    g3UpdateTriLabel(G3.q.miss,val,'var(--green)');
+    showToast('\u6C42\u908A\u6B63\u78BA\uFF01','success');
+
+    setTimeout(function(){
+      document.getElementById('g3-work-feedback').innerHTML='';
+      g3SetPhase('fillRatio');
+    },600);
+  }else{
+    G3.sideHadError=true;
+    G3.qErrors=true;
+    G3.streak=0;
+    g3UpdateTopbar();
+    fb.innerHTML='<span style="color:var(--red)">\u2717 \u4E0D\u6B63\u78BA\uFF0C\u518D\u8A66\u4E00\u6B21\uFF01</span>';
+    input.value='';
+  }
+}
+
+/* Enter key for Game 3 */
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&document.getElementById('game3').classList.contains('active')&&G3.phase==='findSide'){
+    g3Confirm();
+  }
+});
+
+/* ===== G3: RESULTS ===== */
+function g3ShowResults(){
+  CURRENT_GAME=3;
+  var pct=G3.score/G3.maxScore;
+  var emoji,title,msg;
+  if(pct===1){emoji='\uD83C\uDFC6';title='\u6EFF\u5206\uFF01\u592A\u53B2\u5BB3\u4E86\uFF01';msg='\u4F60\u5B8C\u7F8E\u5730\u5B8C\u6210\u4E86\u6240\u6709\u984C\u76EE\uFF0C\u6C92\u6709\u4EFB\u4F55\u932F\u8AA4\uFF01'}
+  else if(pct>=0.83){emoji='\uD83C\uDF89';title='\u975E\u5E38\u51FA\u8272\uFF01';msg='\u4F60\u5C0D\u7562\u6C0F\u5B9A\u7406\u548C\u4E09\u89D2\u6BD4\u6709\u5F88\u597D\u7684\u638C\u63E1\uFF01'}
+  else if(pct>=0.5){emoji='\uD83D\uDC4D';title='\u505A\u5F97\u4E0D\u932F\uFF01';msg='\u7E7C\u7E8C\u7DF4\u7FD2\uFF0C\u4F60\u6703\u8D8A\u4F86\u8D8A\u597D\uFF01'}
+  else{emoji='\uD83D\uDCAA';title='\u7E7C\u7E8C\u52AA\u529B\uFF01';msg='\u591A\u7DF4\u7FD2\u5E7E\u6B21\uFF0C\u4E00\u5B9A\u53EF\u4EE5\u638C\u63E1\uFF01'}
+  showResultsCommon(emoji,title,msg,G3.score,G3.maxScore,null,null,'\u7E3D\u5206','',submitToGoogleForm3);
+}
+
+/* ===== GOOGLE FORM EXPORT (Game 3) ===== */
+function submitToGoogleForm3(){
+  var el=document.getElementById('submit-status');
+  if(!GOOGLE_FORM_URL_3){el.innerHTML='';return}
+  el.className='submit-status sending';
+  el.innerHTML='<i class="fas fa-spinner fa-spin"></i> \u6B63\u5728\u63D0\u4EA4\u6210\u7E3E\u2026';
+
+  var formData=new URLSearchParams();
+  formData.append(ENTRY3_REGNO,  STUDENT.reg_no);
+  formData.append(ENTRY3_CLASS,  STUDENT.class_name);
+  formData.append(ENTRY3_CLASSNO,STUDENT.class_no);
+  formData.append(ENTRY3_NAME,   STUDENT.student_name);
+  formData.append(ENTRY3_SCORE,  G3.score);
+
+  fetch(GOOGLE_FORM_URL_3,{
     method:'POST',mode:'no-cors',
     headers:{'Content-Type':'application/x-www-form-urlencoded'},
     body:formData.toString()
