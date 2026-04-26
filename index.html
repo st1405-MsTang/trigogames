@@ -262,6 +262,28 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text
 /* ===== GAME 2: SCROLLABLE BODY ===== */
 #game2 .game-body{overflow-y:auto;-webkit-overflow-scrolling:touch}
 
+/* ===== GAME 2: ANSWER PHASE — FIT ON SCREEN ===== */
+#game2.g2-phase-answer .instruction-card{display:none}
+#game2.g2-phase-answer .drag-chip-tray{display:none!important}
+#game2.g2-phase-answer .g2-formula-card{padding:8px 12px;margin-bottom:4px}
+#game2.g2-phase-answer .g2-formula-label{margin-bottom:2px;font-size:.78rem}
+#game2.g2-phase-answer .g2-formula-row{margin-bottom:0;font-size:1.05rem}
+#game2.g2-phase-answer .g2-formula-hint{display:none}
+#game2.g2-phase-answer .g2-answer-card{padding:10px 14px;margin-bottom:4px}
+#game2.g2-phase-answer .g2-answer-label{font-size:.95rem;margin-bottom:6px}
+#game2.g2-phase-answer .g2-numpad{margin-top:8px;gap:4px;max-width:220px}
+#game2.g2-phase-answer .g2-numpad-btn{height:40px}
+#game2.g2-phase-answer .g2-numpad-btn.np-confirm{height:42px}
+#game2.g2-phase-answer .tri-container{flex:0 0 auto;max-height:150px;min-height:100px;margin-bottom:4px}
+/* Wider portrait screens (iPad): side-by-side layout in answer phase */
+@media(min-width:600px){
+  #game2.g2-phase-answer .game-body{overflow:hidden;max-width:780px}
+  #game2.g2-phase-answer .game-layout{flex-direction:row;gap:14px;align-items:stretch}
+  #game2.g2-phase-answer .game-left{flex:1;min-width:0}
+  #game2.g2-phase-answer .game-right{width:300px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center}
+  #game2.g2-phase-answer .tri-container{flex:1 1 0%;max-height:none;min-height:0;margin-bottom:0}
+}
+
 /* ===== LANDSCAPE (iPad) LAYOUT ===== */
 @media(min-width:700px) and (orientation:landscape){
   .game-topbar{padding:8px 14px}
@@ -1500,6 +1522,9 @@ function g2DrawTriangle(){
 function g2SetPhase(phase){
   G2.phase=phase;
   g2UpdateSteps();
+  var g2El=document.getElementById('game2');
+  if(phase==='answer')g2El.classList.add('g2-phase-answer');
+  else g2El.classList.remove('g2-phase-answer');
 
   if(phase==='sides'){
     document.getElementById('g2-side-chips').style.display='flex';
